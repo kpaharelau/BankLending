@@ -13,7 +13,7 @@ CreditType* readCreditTypes(){
             char credit_name[100];  // имя кредита
             int rate;               // ставка
             int loan_period;        // срок выдачи
-            int count = fscanf(ptrCreditTypeFile, "%d %s %d %d",
+            int count = fscanf(ptrCreditTypeFile, "%d %s %d %d ",
                                &code_type,
                                credit_name,
                                &rate,
@@ -43,7 +43,7 @@ void recordCreditTypes(CreditType *ptrCreditType) {
     FILE *ptrCreditTypeFiles = fopen("CreditType.txt", "w+");
     ptrCreditType = firstCreditType(ptrCreditType);
     while (ptrCreditType != NULL) {
-        fprintf(ptrCreditTypeFiles, "%d %s %d %d", ptrCreditType->code_type, ptrCreditType->credit_name,
+        fprintf(ptrCreditTypeFiles, "%d %s %d %d ", ptrCreditType->code_type, ptrCreditType->credit_name,
                 ptrCreditType->rate, ptrCreditType->loan_period);
         ptrCreditType = ptrCreditType->next;
     }
