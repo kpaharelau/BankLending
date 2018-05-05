@@ -616,47 +616,11 @@ long getFileSize(FILE *input) {
     return fileSizeBytes;
 }
 
-int calcItemsCount_CreditType(FILE *input) {
-    return (int) getFileSize(input) / sizeof(CreditType);
-}
-
-long getFileSizeClients(FILE *input) {
-    long fileSizeBytes;
-    // set file pointer to end of file
-    fseek(input, 0, SEEK_END);
-    // get current pointer position in bytes (== file size in bytes)
-    fileSizeBytes = ftell(input);
-    // return pointer to begin of file (it's very IMPORTANT)
-    fseek(input, 0, SEEK_SET);
-    return fileSizeBytes;
-}
-
-int calcItemsCount_Clients(FILE *input) {
-    return (int) getFileSizeClients(input) / sizeof(Client);
-}
-
-long getFileSize_Credit(FILE *input) {
-    long fileSizeBytes;
-    // set file pointer to end of file
-    fseek(input, 0, SEEK_END);
-    // get current pointer position in bytes (== file size in bytes)
-    fileSizeBytes = ftell(input);
-    // return pointer to begin of file (it's very IMPORTANT)
-    fseek(input, 0, SEEK_SET);
-    return fileSizeBytes;
-}
-
-int calcItemsCount_Credit(FILE *input) {
-    return (int) getFileSize_Credit(input) / sizeof(Credit);
-}
-
-// подсчет размера файлов
-
 void clearConsole() {
 //  system("clear");
 }
 
 int isFileExists(const char *name){
-    struct stat   buffer;
+    struct stat   buffer;                                //что делает эта функция|| желательно подробнее
     return (stat (name, &buffer) == 0);
 }

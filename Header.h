@@ -4,9 +4,6 @@
 #include <ctime>
 #include <sys/stat.h>
 
-
-using namespace std;
-
 #pragma once
 
 /*
@@ -38,9 +35,8 @@ struct Client {
     char address[28];     // адрес
     nickname guarantor;   // поручитель
     Client *next;
+    Client *prev;
 };
-
-
 
 typedef struct {
     int year;
@@ -54,11 +50,12 @@ struct Credit {
     int amount;           // сумма
     Date date;            // дата выдачи
     Credit *next;
+    CreditType *prev;
 };
 
 struct BankData {
     CreditType *creditType;
-    Client *clients;
+    Client *client;
     Credit *credit;
 };
 
@@ -123,7 +120,8 @@ int isFileExists(const char *name);
 
 
 
-// РАЗОБРАТЬСЯ С ФСЕЕК и функцией long getFileSizeClients(FILE* input);
+// РАЗОБРАТЬСЯ С ФСЕЕК и функцией long getFileSize(FILE* input);
 // ДОБАВИТЬ ПРОВЕРКИ НА ПУСТОТУ СТЕКА И НА ВВОД ЧИСЕЛ С ТЕКТСТОМ
 // разобраться с удалением
 // выяснить причину использования не прямых указателей, а передачей его сожержимого в другой и работой с другим
+// задефайнить тру и фолс

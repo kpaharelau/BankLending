@@ -1,0 +1,114 @@
+#include <w32api/dshow.h>
+#include "CreditType.h"
+#include "Header.h"
+
+Client* readClient(){
+    Client *ptrClient = nullptr;
+    if(isFileExists("Client.txt")){
+        FILE *ptrClientFile = fopen("Client.txt", "r");
+
+        long size = getFileSize(ptrClientFile);
+        int itemsCount = 2;// size / sizeof(CreditType);           // утром расскажешь за чашечкой чая причину появления двойки тут
+        Client *ptrPrevClient = nullptr;
+        while (true) {
+            int tel_number;       // логин
+            nickname name_user;   // кредитополучатель
+            char address[28];     // адрес
+            nickname guarantor;   //поручитель
+            int count = fscanf(ptrClientFile, "%d %s %s %s %s %s ",
+                               &tel_number,
+                               name_user.surname,
+                               name_user.name,
+                               address,
+                               guarantor.surname,
+                               guarantor.name);
+            if (count != 6) {
+                break;                                                   //почему четыре
+            }
+            ptrClient = new Client;
+            ptrClient->tel_number = tel_number;
+            strcpy(ptrClient->name_user.surname, name_user.surname);     //выдает ошибку, т.к что-то не так со strcpy
+            strcpy(ptrClient->name_user.name, name_user.name);
+            strcpy(ptrClient->address, address);
+            strcpy(ptrClient->guarantor.surname, guarantor.surname);
+            strcpy(ptrClient->guarantor.name, guarantor.name);
+
+            if (ptrPrevClient != nullptr){
+                ptrPrevClient->next = ptrClient;
+                ptrClient->prev = ptrClient;
+            }
+            ptrPrevClient = ptrClient;
+        }
+        fclose(ptrClientFile);
+    }
+    return ptrClient;
+}
+
+void recordClient(Client *ptrClient) {
+    FILE *ptrClientFiles = fopen("Client.txt", "w+");
+    ptrClient = firstClient(ptrClient);
+    while (ptrClient != NULL) {
+        fprintf(ptrClientFiles, "%d %s %s %s %s %s ",
+                ptrClient->tel_number,
+                ptrClient->name_user.surname,
+                ptrClient->name_user.name,
+                ptrClient->address,
+                ptrClient->guarantor.surname,
+                ptrClient->guarantor.name);
+        ptrClient = ptrClient->next;
+    }
+    fclose(ptrClientFiles);
+}
+
+Client* firstClient(Client* ptrClient) {
+    while (ptrClient != NULL && ptrClient->prev != NULL) {
+        ptrClient = ptrClient->prev;
+    }
+    return ptrClient;
+}
+
+Client* lastClient(Client* ptrClient){
+    while (ptrClient != NULL && ptrClient->next != NULL) {
+        ptrClient = ptrClient->next;
+    }
+    return ptrClient;
+}
+
+Client * inputClient(Client *ptrClient) {
+    if (ptrClient != NULL)
+        ptrClient = lastClient(ptrClient);
+
+    int num;
+    printf("Сколько вы хотите ввести клиентов: ");
+    scanf("%d", &num);
+    fflush(stdin);
+    for (int i = 0; i < num; i++) {
+        Client *ptrNewClient = new Client;
+        printf("%d. ", (i + 1));
+        printf("\nВведите телефонный номер: ");
+        fflush(stdin);
+        ptrNewClient->tel_number = controlNumber();
+        printf("Введите фамилию клиента: ");
+        fflush(stdin);
+        scanf("%s", ptrNewClient->name_user.surname);
+        printf("Введите имя клиента: ");
+        fflush(stdin);
+        scanf("%s", ptrNewClient->name_user.name);
+        printf("Введите адресс клиента(без пробелов):  ");
+        fflush(stdin);
+        scanf("%s", ptrNewClient->address);
+        printf("Введите фамилию поручителя: ");
+        fflush(stdin);
+        scanf("%s", ptrNewClient->guarantor.surname);
+        printf("Введите имя поручителя: ");
+        fflush(stdin);
+        scanf("%s", ptrNewClient->guarantor.name);
+
+        ptrNewClient->prev = ptrNewClient;
+        if (ptrNewClient != NULL)
+            ptrNewClient->next = ptrNewClient;
+        ptrClient = ptrNewClient;
+    }
+
+    return ptrClient;
+}

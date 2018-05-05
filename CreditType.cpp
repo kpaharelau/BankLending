@@ -1,3 +1,4 @@
+#include <w32api/dshow.h>
 #include "CreditType.h"
 
 CreditType* readCreditTypes(){
@@ -19,11 +20,11 @@ CreditType* readCreditTypes(){
                                &rate,
                                &loan_period);
             if (count != 4) {
-                break;
+                break;                                                   //почему четыре
             }
             ptrCreditType = new CreditType;
             ptrCreditType->code_type = code_type;
-            strcpy(ptrCreditType->credit_name, credit_name);
+            strcpy(ptrCreditType->credit_name, credit_name);              //выдает ошибку, т.к что-то не так со strcpy
             ptrCreditType->rate = rate;
             ptrCreditType->loan_period = loan_period;
 

@@ -1,13 +1,8 @@
 #include "Header.h"
 
-#ifndef BANKLENDING_CREDITTYPE_H
-#define BANKLENDING_CREDITTYPE_H
+CreditType* readCreditTypes();                                  // чтение файла
+void recordCreditTypes(CreditType *ptrStartCreditType);         //
 
-#endif //BANKLENDING_CREDITTYPE_H
-
-CreditType* readCreditTypes();
-void recordCreditTypes(CreditType *ptrStartCreditType);
-
-CreditType* firstCreditType(CreditType* ptrCreditType);
-CreditType* lastCreditType(CreditType* ptrCreditType);
-CreditType * inputCreditType(CreditType *ptrCreditType);
+CreditType* firstCreditType(CreditType* ptrCreditType);         //определение конечного элемента
+CreditType* lastCreditType(CreditType* ptrCreditType);          //определение первого элемента
+CreditType * inputCreditType(CreditType *ptrCreditType);        //ввод вида кредита
