@@ -1,6 +1,6 @@
 #include "Header.h"
 
-void menuAdmin(CreditType *start_creditType, Clients *start_clients, Credit *start_credit) {
+void menuAdmin(BankData* ptrBankData, CreditType *ptrCreditType, Client *start_clients, Credit *start_credit) {
     int test;
     while (true) {
         clearConsole();
@@ -17,15 +17,15 @@ void menuAdmin(CreditType *start_creditType, Clients *start_clients, Credit *sta
         if (i == 0) break;
         switch (i) {
             case 1:
-                add(start_creditType, start_clients, start_credit);
+                add(ptrCreditType, start_clients, start_credit, ptrBankData);
                 break;
             case 2:
                 break;
             case 3:
-                remove(start_creditType, start_clients, start_credit);
+                remove(ptrCreditType, start_clients, start_credit);
                 break;
             case 4:
-                test = viewAll(start_creditType, start_clients, start_credit);
+                test = viewAll(ptrCreditType, start_clients, start_credit);
                 if (test == 1) {
                     printf("Нет достаточного количества данных \n");
                 }
