@@ -26,16 +26,16 @@ struct CreditType {
     CreditType *prev;
 };
 
-typedef struct {
+typedef struct Nickname {
     char name[18];    // имя
     char surname[26]; // фамилия
-} nickname;
+};
 
 struct Client {
     int tel_number;       // логин
-    nickname name_user;   // кредитополучатель
+    Nickname name_user;   // кредитополучатель
     char address[28];     // адрес
-    nickname guarantor;   // поручитель
+    Nickname guarantor;   // поручитель
     Client *next;
     Client *prev;
 };
