@@ -1,5 +1,6 @@
 #include "Header.h"
 #include "CreditType.h"
+#include "Client.h"
 
 int main() {
     BankData* bankData = new BankData;

@@ -1,4 +1,3 @@
-#include <w32api/dshow.h>
 #include "CreditType.h"
 
 CreditType* readCreditTypes(){
@@ -6,8 +5,6 @@ CreditType* readCreditTypes(){
     if(isFileExists("CreditType.txt")){
         FILE *ptrCreditTypeFile = fopen("CreditType.txt", "r");
 
-        long size = getFileSize(ptrCreditTypeFile);
-        int itemsCount = 2;// size / sizeof(CreditType);
         CreditType *ptrPrevCreditType = nullptr;
         while (true) {
             int code_type;          // код кредита
