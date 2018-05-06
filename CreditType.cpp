@@ -1,3 +1,4 @@
+#include <cstring>
 #include "CreditType.h"
 
 CreditType* readCreditTypes(){
@@ -95,26 +96,48 @@ CreditType * inputCreditType(CreditType *ptrCreditType) {
     return ptrCreditType;
 }
 
-CreditType* deleteCreditType(CreditType *ptrCreditType){
-    int count = 0, choice;
-    ptrCreditType = firstCreditType(ptrCreditType);
-    printf("Выберите элемент для удаления.");
-    if (ptrCreditType != nullptr) {
+int renderCreditTypes(CreditType *ptrCreditType){
+    int count = 0;
+
+        ptrCreditType = firstCreditType(ptrCreditType);
         while (ptrCreditType != NULL) {                // подсказка для людей
-            printf("/n%d. ", (count + 1));
-            printf("%d %s %d %d ", ptrCreditType->code_type, ptrCreditType->credit_name,
+            printf("%d. ", (count + 1));
+            printf("%d %s %d %d\n", ptrCreditType->code_type, ptrCreditType->credit_name,
                    ptrCreditType->rate, ptrCreditType->loan_period);
             ptrCreditType = ptrCreditType->next;
-        }
-        choice = controlNumber();                       // выбор собираем
-                 if ( choice > count ) break;
+            count++;
+    }
+    return count;
+}
 
-        ptrCreditType = firstCreditType(ptrCreditType); // указатель возвращаем в первоначальное состояние
-        for(int i = 0 ; i < count ; i ++){
-            ptrCreditType = ptrCreditType->next;        // катаем цикл до нужного элемента
+int askForChoice(int count){
+    int choice;
+    while (true){
+        scanf("%d" , &choice);                       // проверка
+        if ( choice <= count || choice == -1) break;
+        printf("Проверьте число!");
+    }
+    return choice;
+}
+
+CreditType* deleteCreditType(CreditType *ptrCreditType){
+    if (ptrCreditType != nullptr) {
+        int count = renderCreditTypes(ptrCreditType);
+        printf("Выберите элемент для удаления или -1 для выхода.\n");
+        int choice = askForChoice(count);
+        if (choice != -1) {
+            ptrCreditType = firstCreditType(ptrCreditType); // указатель возвращаем в первоначальное состояние
+            for(int i = 0 ; i < choice ; i ++){
+                ptrCreditType = ptrCreditType->next;        // катаем цикл до нужного элемента
+            }
+            CreditType * ptrPrevCreditType = ptrCreditType->prev;
+            CreditType * ptrNextCreditType = ptrCreditType->next;
+            if (ptrNextCreditType != NULL)
+                ptrNextCreditType->prev = ptrPrevCreditType;
+            if (ptrPrevCreditType != NULL)
+                ptrPrevCreditType->next = ptrNextCreditType;
+            delete(ptrCreditType);
         }
-        ptrCreditType->next = ptrCreditType->prev;
-        delete(ptrCreditType);
     }
     else{
         printf("Нет данных для удаления");

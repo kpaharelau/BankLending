@@ -2,6 +2,13 @@
 #include "Credit.h"
 #include "Header.h"
 
+void recordCredit(Credit *ptrStartCredit){
+
+}
+int viewAll(BankData *){
+
+}
+
 Credit* readCredit(){
     Credit* ptrCredit = nullptr;
     if( isFileExists("Credit.txt")){

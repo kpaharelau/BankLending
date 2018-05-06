@@ -26,7 +26,7 @@ struct CreditType {
     CreditType *prev;
 };
 
-typedef struct Nickname {
+struct Nickname {
     char name[18];    // имя
     char surname[26]; // фамилия
 };
@@ -40,11 +40,11 @@ struct Client {
     Client *prev;
 };
 
-typedef struct {
+struct Date{
     int year;
     int month;
     int day;
-} Date;
+};
 
 struct Credit {
     int code_type;        // код типа кредита
@@ -75,6 +75,7 @@ int removeAll(BankData *);
 
 int viewAll(BankData *);
 
+int askForChoice(int count);
 
 void head();
 

@@ -176,12 +176,12 @@ int removeAll(BankData* ptrBankData) {
     free(*list);
     (*list) = NULL;
 }*/
-
+//                CreditType *ptrDeliteCreditType = firstCreditType(ptrCreditType); ;
                 ptrBankData->creditType = nullptr;
 
                 break;
             default:
-                printf("Введите числа от 0 до 3:  ");
+                printf("Введите числа от 1 до 2:  ");
         }
     }
     return 0;

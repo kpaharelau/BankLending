@@ -1,3 +1,4 @@
+#include <cstring>
 #include "CreditType.h"
 #include "Header.h"
 

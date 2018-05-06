@@ -7,97 +7,6 @@
 //               ФУНКЦИИ УДАЛЕНИЯ  // АДМИНИСТРАТОР
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-int deleteCreditType(CreditType *start_creditType) {
-    int count = 0, key;
-    CreditType *p_creditType = start_creditType;
-    while (p_creditType != NULL) {
-        count++;
-        printf("%d. %d\t%s", count, p_creditType->code_type, p_creditType->credit_name);
-        p_creditType = p_creditType->next;
-
-    }
-    printf("Введите /№ вида кредита, который будет удален: ");
-    key = controlNumber();
-    if (count < key) {
-        return 1;
-    } else {
-        CreditType *p_creditType = start_creditType;
-        for (int i = 0; i < count; i++) {
-            p_creditType = p_creditType->next;
-        }
-        CreditType *pre = start_creditType;
-        while (pre != NULL) {
-            if (pre->next == p_creditType)
-                break;            //нашли предшествующий узел и выходим из цикла
-            pre = pre->next;
-        }
-        pre->next = p_creditType->next;
-        fflush(stdin);
-        delete p_creditType;
-    }
-    return 0;
-}
-
-int deleteClients(Client *start_clients) {
-    int count = 0, key;
-    Client *p_clients = start_clients;
-    while (p_clients != NULL) {
-        count++;
-        printf("%d. %d\t%s\t%s", count, p_clients->tel_number, p_clients->name_user.surname, p_clients->name_user.name);
-        p_clients = p_clients->next;
-    }
-    printf("Введите /№ вида кредита, который будет удален: ");
-    key = controlNumber();
-    if (count < key) {
-        return 1;
-    } else {
-        Client *p_clients = start_clients;
-        for (int i = 0; i < count; i++) {
-            p_clients = p_clients->next;
-        }
-        Client *pre = start_clients;
-        while (pre != NULL) {
-            if (pre->next == p_clients)
-                break;            //нашли предшествующий узел и выходим из цикла
-            pre = pre->next;
-        }
-        pre->next = p_clients->next;
-        delete p_clients;
-        fflush(stdin);
-    }
-    return 0;
-}
-
-int deleteCredit(Credit *start_credit) {
-    int count = 0, key;
-    Credit *p_credit = start_credit;
-    while (p_credit != NULL) {
-        printf("%d. %d\t%d\t%d", count, p_credit->code_type, p_credit->tel_number, p_credit->amount);
-        p_credit = p_credit->next;
-        count++;
-    }
-    printf("Введите /№ вида кредита, который будет удален: ");
-    key = controlNumber();
-    if (count < key) {
-        return 1;
-    } else {
-        Credit *p_credit = start_credit;
-        for (int i = 0; i < count; i++) {
-            p_credit = p_credit->next;
-        }
-        Credit *pre = start_credit;
-        while (pre != NULL) {
-            if (pre->next == p_credit)
-                break;            //нашли предшествующий узел и выходим из цикла
-            pre = pre->next;
-        }
-        pre->next = p_credit->next;
-        delete p_credit;
-        fflush(stdin);
-    }
-    return 0;
-}
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //               ФУНКЦИИ ПРОСМОТРА  // АДМИНИСТРАТОР
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -151,12 +60,14 @@ void getTime(tm &newtime) {
 
 int controlNumber() {
     int res, i;
-    do {
-        res = scanf("%d", &i);
-        while (getchar() != '\n');
-        if (res != 1) printf("Введите число!\n");
-    } while (res != 1);
+    scanf("%d", &i);
     return i;
+//    do {
+//        = res  scanf("%d", &i);
+//        while (getchar() != '\n');
+//        if (res != 1) printf("Введите число!\n");
+//    } while (res != 1);
+//    return i;
 }
 // Контроль ввода именно чисел
 
