@@ -1,4 +1,5 @@
-#include "Client.h"
+#include <w32api/dshow.h>
+#include "CreditType.h"
 #include "Header.h"
 
 Client* firstClient(Client* ptrClient) ;
@@ -24,15 +25,15 @@ Client* readClient(){
                                guarantor_surname,
                                guarantor_name);
             if (count != 6) {
-                break;                                                   
+                break;
             }
             ptrClient = new Client;
             ptrClient->tel_number = tel_number;
-            strcpy(ptrClient->name_user.surname, user_surname);     //выдает ошибку, т.к что-то не так со strcpy
-            strcpy(ptrClient->name_user.name, user_name);
+            strcpy(ptrClient->name_user.surname, name_user.surname);     //выдает ошибку, т.к что-то не так со strcpy
+            strcpy(ptrClient->name_user.name, name_user.name);
             strcpy(ptrClient->address, address);
-            strcpy(ptrClient->guarantor.surname, guarantor_surname);
-            strcpy(ptrClient->guarantor.name, guarantor_name);
+            strcpy(ptrClient->guarantor.surname, guarantor.surname);
+            strcpy(ptrClient->guarantor.name, guarantor.name);
 
             if (ptrPrevClient != nullptr){
                 ptrPrevClient->next = ptrClient;
@@ -44,8 +45,6 @@ Client* readClient(){
     }
     return ptrClient;
 }
-
-
 
 void recordClient(Client *ptrClient) {
     FILE *ptrClientFiles = fopen("Client.txt", "w+");

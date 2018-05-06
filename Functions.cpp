@@ -75,7 +75,7 @@ void removePart(CreditType *ptrCreditType, Client *ptrClient, Credit *ptrCredit)
         clearConsole();
         switch (i) {
             case 1:
-                if (deleteCreditType(start_creditType) == 1) {
+                if (deleteCreditType(ptrCreditType) == 1) {
                     puts("Вид кредита не найден");
                 } else {
                     puts("Вид кредита удален.");

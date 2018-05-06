@@ -71,8 +71,6 @@ void remove(CreditType *, Client *, Credit *, BankData *);
 
 void removePart(CreditType *, Client *, Credit *);
 
-int deleteCreditType(CreditType *);
-
 int deleteClients(Client *);
 
 int deleteCredit(Credit *);

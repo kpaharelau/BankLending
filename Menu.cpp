@@ -45,6 +45,7 @@ void menuAdmin(BankData* ptrBankData, CreditType *ptrCreditType, Client *ptrClie
 
 void menuUser() {
     while (true) {
+        printf("Пользователь ======= Выберите действие =======\n");
         printf("1. Открытие файла с данными.\n");
         printf("2. Простмотр всех данных в табличной форме.\n");
         printf("3. Выполнение задачи.\n");
