@@ -1,158 +1,12 @@
 #include "Header.h"
 #include "CreditType.h"
+#include "Client.h"
+#include "Credit.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//               ФУНКЦИИ ВВОДА И ВЫВОДА // АДМИНИСТРАТОР
+//               ФУНКЦИИ ДОБАВЛЕНИЯ // АДМИНИСТРАТОР
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
-int readOrCreateFile(CreditType *start_creditType, Credit *start_credit, Client *start_clients) {        // Запись в оперативку
-    FILE *fp_creditType;
-    FILE *fp_clients;
-    FILE *fp_credit;
-    CreditType *temp_creditType = new CreditType;
-    Credit *temp_credit = new Credit;
-    Client *temp_clients = new Client;
-    int size, i;
-/////////////////////////////////////////////////////////////////////////1
-    fp_creditType = fopen("CreditType.txt", "r");
-    if (!fp_creditType) {
-        fp_creditType = fopen("CreditType.txt", "w");
-        fclose(fp_creditType);
-        return -1;
-    } else {
-        CreditType *end = NULL;
-        size = static_cast<int>(getFileSize(fp_creditType));
-
-        for (i = size; i > 0; i--) {
-            if (start_creditType == NULL) {
-                start_creditType = temp_creditType;
-            }
-            fscanf(fp_creditType, "%d", &temp_creditType->code_type);
-            fscanf(fp_creditType, "%s", temp_creditType->credit_name);
-            fscanf(fp_creditType, "%d", &temp_creditType->rate);
-            fscanf(fp_creditType, "%d", &temp_creditType->loan_period);
-            temp_creditType->next = NULL;
-            if (end == NULL) {
-                end = temp_creditType;
-            } else {
-                end->next = temp_creditType;
-                end = temp_creditType; // пояснить
-            }
-        }
-        fclose(fp_creditType);
-        delete (temp_creditType);
-    }
-/////////////////////////////////////////////////////////////////////////2
-    fp_credit = fopen("Credit.txt", "r");
-    if (!fp_credit) {
-        fp_credit = fopen("Credit.txt", "w");
-        fclose(fp_credit);
-        return 0;
-    } else {
-        Credit *end = NULL;
-        size = static_cast<int>(getFileSize_Credit(fp_credit));
-
-        for (i = size; i > 0; i--) {
-            if (start_credit == NULL) {
-                start_credit = temp_credit;
-            }
-            fscanf(fp_credit, "%d", &temp_credit->code_type);
-            fscanf(fp_credit, "%d", &temp_credit->tel_number);
-            fscanf(fp_credit, "%d", &temp_credit->amount);
-            fscanf(fp_credit, "%d", &temp_credit->date.day);
-            fscanf(fp_credit, "%d", &temp_credit->date.month);
-            fscanf(fp_credit, "%d", &temp_credit->date.year);
-            temp_clients->next = NULL;
-            if (end == NULL) {
-                end = temp_credit;
-            } else {
-                end->next = temp_credit;
-                end = temp_credit; // пояснить
-            }
-        }
-        fclose(fp_credit);
-        delete (temp_credit);
-    }
-//////////////////////////////////////////////////////////////////////////3
-    fp_clients = fopen("Client.txt", "r");
-    if (!fp_clients) {
-        fp_clients = fopen("Client.txt", "w");
-        fclose(fp_clients);
-        return 0;
-    } else {
-        Client *end = NULL;
-        size = getFileSizeClients(fp_clients);
-
-        for (i = size; i > 0; i--) {
-            if (start_clients == NULL) {
-                start_clients = temp_clients;
-            }
-            fscanf(fp_clients, "%d", &temp_clients->tel_number);
-            fscanf(fp_clients, "%s", temp_clients->name_user.surname);
-            fscanf(fp_clients, "%s", temp_clients->name_user.name);
-            fscanf(fp_clients, "%s", temp_clients->address);
-            fscanf(fp_clients, "%s", temp_clients->guarantor.surname);
-            fscanf(fp_clients, "%s", temp_clients->guarantor.name);
-            temp_clients->next = NULL;
-            if (end == NULL) {
-                end = temp_clients;
-            } else {
-                end->next = temp_clients;
-                end = temp_clients; // пояснить
-            }
-        }
-        fclose(fp_clients);
-        delete (temp_clients);
-    }
-    return 0;
-}
-
-int recordFile(CreditType *start_creditType, Credit *start_credit, Client *start_clients) {        // Запись в файл
-    FILE *fp_creditType;
-    FILE *fp_credit;
-    FILE *fp_clients;
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-    fp_creditType = fopen("CreditType.txt", "w+");
-    if (start_creditType != NULL) {
-        CreditType *temp_creditType = start_creditType;
-        while (start_creditType != NULL) {
-            fprintf(fp_creditType, "%d %s %d %d", temp_creditType->code_type, temp_creditType->credit_name,
-                    temp_creditType->rate, temp_creditType->loan_period);
-            temp_creditType = temp_creditType->next;
-        }
-    }
-    fclose(fp_creditType);
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-    fp_credit = fopen("Credit.txt", "w+");
-    if (start_credit != NULL) {
-        Credit *temp_credit = start_credit;
-        while (start_credit != NULL) {
-            fprintf(fp_credit, "%d %d %d  %d.%d.%d ", temp_credit->code_type, temp_credit->tel_number,
-                    temp_credit->amount, temp_credit->date.day, temp_credit->date.month, temp_credit->date.year);
-            temp_credit = temp_credit->next;
-        }
-    }
-    fclose(fp_credit);
-////////////////////////////////////////////////////////////////////////////////////////////////////////
-    fp_clients = fopen("Client.txt", "w+");
-    if (start_clients != NULL) {
-        Client *temp_clients = start_clients;
-        while (start_clients != NULL) {
-            fprintf(fp_clients, "%d %s %s %s %s %s ", temp_clients->tel_number, temp_clients->name_user.surname,
-                    temp_clients->name_user.name, temp_clients->address, temp_clients->guarantor.surname,
-                    temp_clients->guarantor.name);
-            temp_clients = temp_clients->next;
-        }
-    }
-    fclose(fp_clients);
-    return 0;
-}
-
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-//               ФУНКЦИИ АДМИНИСТРАТОРА // АДМИНИСТРАТОР
-////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-void add(CreditType *ptrCreditType, Client *start_clients, Credit *start_credit, BankData *ptrBankData) {
+void add(CreditType *ptrCreditType, Client *ptrClient, Credit *ptrCredit, BankData* ptrBankData ) {
     while (true) {
         printf("======= Выберите действие =======\n");
         printf("1. Добавить вид кредита\n");
@@ -165,13 +19,13 @@ void add(CreditType *ptrCreditType, Client *start_clients, Credit *start_credit,
         clearConsole();
         switch (i) {
             case 1:
-                ptrBankData->creditType = inputCreditType(ptrCreditType);
+                ptrBankData->creditType = inputCreditType(ptrCreditType); // еще раз причину появления банка данных
                 break;
             case 2:
-                addClients(&start_clients);
+                ptrBankData->client = inputClient(ptrClient);
                 break;
             case 3:
-                addCredit(&start_credit, &ptrCreditType, &start_clients);
+                ptrBankData->credit = inputCredit(ptrCredit);
                 break;
             default:
                 printf("Введите числа от 0 до 3:  ");
@@ -179,167 +33,11 @@ void add(CreditType *ptrCreditType, Client *start_clients, Credit *start_credit,
     }
 }
 
-int addCreditType(CreditType **start_creditType) {
-    if (*start_creditType != NULL) {// если не пустой
-        CreditType *p_creditType = new CreditType;
-        inputCreditType(p_creditType);
-
-        CreditType *prev_creditType = *start_creditType, *post_creditType = *start_creditType;
-        while (post_creditType != NULL) {
-            if (post_creditType->code_type > p_creditType->code_type) {
-                //поместим новый узел между узлами, задаваемыми prev и post
-                p_creditType->next = post_creditType;
-                if (post_creditType == *start_creditType)
-                    *start_creditType = p_creditType;
-                else
-                    prev_creditType->next = p_creditType;
-                return 0;
-            }
-            prev_creditType = post_creditType;
-            post_creditType = post_creditType->next;
-        }
-        //поместим новый узел в конец списка
-        p_creditType->next = NULL;
-        prev_creditType->next = p_creditType;
-    } else {                        // если он пустой
-        CreditType *p_creditType = new CreditType;
-        inputCreditType(p_creditType);
-        p_creditType->next = NULL;
-        *start_creditType = p_creditType;
-    }
-    return 0;
-}
-
-int addClients(Client **start_clients) {
-    if (*start_clients != NULL) {// если не пустой
-        Client *p_clients = new Client;
-        inputClients(p_clients);
-
-        Client *prev_clients = *start_clients, *post_clients = *start_clients;// спросить у яны
-        while (post_clients != NULL) {
-            if (post_clients->tel_number > p_clients->tel_number) {
-                //поместим новый узел между узлами, задаваемыми prev и post
-                p_clients->next = post_clients;
-                if (post_clients == *start_clients)
-                    *start_clients = p_clients;
-                else
-                    prev_clients->next = p_clients;
-                return 0;
-            }
-            prev_clients = post_clients;
-            post_clients = post_clients->next;
-        }
-        //поместим новый узел в конец списка
-        p_clients->next = NULL;
-        prev_clients->next = p_clients;
-    } else {                        // если он пустой
-        Client *p_clients = new Client;
-        inputClients(p_clients);
-        p_clients->next = NULL;
-        *start_clients = p_clients;
-    }
-    return 0;
-}
-
-int addCredit(Credit **start_credit, CreditType **start_creditType, Client **start_clients) {
-    if (*start_credit != NULL) {// если не пустой
-        Credit *p_credit = new Credit;
-        inputCredit(p_credit, *start_creditType, *start_clients);
-
-        Credit *prev_credit = *start_credit, *post_credit = *start_credit;// спросить у яны
-        while (post_credit != NULL) {
-            if (post_credit->code_type > p_credit->code_type) {
-                //поместим новый узел между узлами, задаваемыми prev и post
-                p_credit->next = post_credit;
-                if (post_credit == *start_credit)
-                    *start_credit = p_credit;
-                else
-                    prev_credit->next = p_credit;
-                return 0;
-            }
-            prev_credit = post_credit;
-            post_credit = post_credit->next;
-        }
-        //поместим новый узел в конец списка
-        p_credit->next = NULL;
-        prev_credit->next = p_credit;
-    } else {                        // если он пустой
-        Credit *p_credit = new Credit;
-        inputCredit(p_credit, *start_creditType, *start_clients);
-        p_credit->next = NULL;
-        *start_credit = p_credit;
-    }
-    return 0;
-}
-
-void inputClients(Client *p_clients) {
-    int num;
-    printf("Сколько вы хотите ввести клиентов: ");
-    scanf("%d", &num);
-    fflush(stdin);
-    for (int i = 0; i < num; i++) {
-        printf("%d. ", (i + 1));
-        printf("\nВведите телефонный номер: ");
-        fflush(stdin);
-        p_clients->tel_number = controlNumber();
-        printf("Введите фамилию клиента: ");
-        fflush(stdin);
-        scanf("%s", p_clients->name_user.surname);
-        printf("Введите имя клиента: ");
-        fflush(stdin);
-        scanf("%s", p_clients->name_user.name);
-        printf("Введите адресс клиента(без пробелов):  ");
-        fflush(stdin);
-        scanf("%s", p_clients->address);
-        printf("Введите фамилию поручителя: ");
-        fflush(stdin);
-        scanf("%s", p_clients->guarantor.surname);
-        printf("Введите имя поручителя: ");
-        fflush(stdin);
-        scanf("%s", p_clients->guarantor.name);
-
-    }
-}
-
-int inputCredit(Credit *p_credit, CreditType *start_creditType, Client *start_clients) {
-    if (start_clients == NULL || start_creditType == NULL) {
-        printf("Нехватка данных для создания выданного кредита\n");
-        return 1;
-    }
-    int num;
-    printf("Сколько вы хотите ввести кредитов: ");
-    scanf("%d", &num);
-    fflush(stdin);
-    for (int i = 0; i < num; i++) {
-        printf("%d. ", (i + 1));
-        printf("\nВведите код кредита: "); // сделать проверку и вывести
-        p_credit->code_type = controlNumber();
-        fflush(stdin);
-        printf("Введите телефонный номер: "); //сделать проверку на существование такого номера и вывести все номера перед вводом
-        p_credit->tel_number = controlNumber();
-        printf("Введите сумму кредита: ");
-        fflush(stdin);
-        p_credit->amount = controlNumber();
-        printf("Введите дату выдачи\n: ");
-        printf("д: ");
-        fflush(stdin);
-        p_credit->date.day = controlNumber();
-        printf("м: ");
-        fflush(stdin);
-        p_credit->date.month = controlNumber();  // сделать дополнительные проверки
-        printf("г: ");
-        fflush(stdin);
-        p_credit->date.year = controlNumber();
-
-    }
-    return 0;
-}
-
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //               ФУНКЦИИ УДАЛЕНИЯ  // АДМИНИСТРАТОР
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void remove(CreditType *start_creditType, Client *start_clients, Credit *start_credit) {
+void remove(CreditType *ptrCreditType, Client *ptrClient, Credit *ptrCredit, BankData* ptrBankData ) {
     while (1) {
         printf("======= Выберите действие =======\n");
         printf("1. Удалить все\n");
@@ -352,10 +50,10 @@ void remove(CreditType *start_creditType, Client *start_clients, Credit *start_c
         clearConsole();
         switch (i) {
             case 1:
-                removeAll(start_creditType, start_clients, start_credit);
+                removeAll(ptrCreditType, ptrClient, ptrCredit);
                 break;
             case 2:
-                removePart(start_creditType, start_clients, start_credit);
+                removePart(ptrCreditType, ptrClient, ptrCredit);
                 break;
             default:
                 printf("Введите числа от 0 до 2:  ");
@@ -363,8 +61,7 @@ void remove(CreditType *start_creditType, Client *start_clients, Credit *start_c
     }
 }
 
-void removePart(CreditType *start_creditType, Client *start_clients,
-                Credit *start_credit) { // находиться в разработке, т.к. фигня с указателями
+void removePart(CreditType *ptrCreditType, Client *ptrClient, Credit *ptrCredit) {
     while (1) {
         printf("\n ======= Выберите действие =======\n");
         printf("1. Удалить вид кредита\n");
@@ -400,7 +97,7 @@ void removePart(CreditType *start_creditType, Client *start_clients,
     }
 }
 
-int removeAll(CreditType *start_creditType, Client *start_clients, Credit *start_credit) {
+int removeAll(CreditType *ptrCreditType, Client *ptrClient, Credit *ptrCredit) {
 
     while (true) {
         printf("\n======= Вы уверены? =======");
@@ -444,7 +141,7 @@ int removeAll(CreditType *start_creditType, Client *start_clients, Credit *start
                    }
                  }*/
 
-                break; // добавить удаление всего
+                break;
             default:
                 printf("Введите числа от 0 до 3:  ");
         }

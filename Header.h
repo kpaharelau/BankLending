@@ -3,6 +3,8 @@
 #include <iostream>
 #include <ctime>
 #include <sys/stat.h>
+#define true 1
+
 
 #pragma once
 
@@ -50,7 +52,7 @@ struct Credit {
     int amount;           // сумма
     Date date;            // дата выдачи
     Credit *next;
-    CreditType *prev;
+    Credit *prev;
 };
 
 struct BankData {
@@ -61,27 +63,11 @@ struct BankData {
 
 int controlNumber();
 
-int readOrCreateFile(CreditType *, Credit *, Client *);
-
-int recordFile(CreditType *, Credit *, Client *);
-
 void menuAdmin(BankData *,  CreditType *, Client *, Credit *);
 
-void add(CreditType *, Client *, Credit *, BankData *ptrBankData);
+void add(CreditType *, Client *, Credit *, BankData *);
 
-int addCreditType(CreditType **);
-
-int addClients(Client **);
-
-int addCredit(Credit **, CreditType **, Client **);
-
-CreditType * inputCreditType(CreditType *);
-
-int inputCredit(Credit *, CreditType *, Client *);
-
-void inputClients(Client *);
-
-void remove(CreditType *, Client *, Credit *);
+void remove(CreditType *, Client *, Credit *, BankData *);
 
 void removePart(CreditType *, Client *, Credit *);
 
@@ -104,16 +90,6 @@ void getTime(tm &newtime);
 
 long getFileSize(FILE *input);
 
-int calcItemsCount_CreditType(FILE *input);
-
-long getFileSize_Credit(FILE *input);
-
-int calcItemsCount_Credit(FILE *input);
-
-long getFileSizeClients(FILE *input);
-
-int calcItemsCount_Clients(FILE *input);
-
 void clearConsole();
 
 int isFileExists(const char *name);
@@ -124,4 +100,3 @@ int isFileExists(const char *name);
 // ДОБАВИТЬ ПРОВЕРКИ НА ПУСТОТУ СТЕКА И НА ВВОД ЧИСЕЛ С ТЕКТСТОМ
 // разобраться с удалением
 // выяснить причину использования не прямых указателей, а передачей его сожержимого в другой и работой с другим
-// задефайнить тру и фолс

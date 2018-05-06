@@ -2,6 +2,8 @@
 #include "CreditType.h"
 #include "Header.h"
 
+Client* firstClient(Client* ptrClient) ;
+
 Client* readClient(){
     Client *ptrClient = nullptr;
     if(isFileExists("Client.txt")){
