@@ -63,21 +63,17 @@ struct BankData {
 
 int controlNumber();
 
-void menuAdmin(BankData *,  CreditType *, Client *, Credit *);
+void menuAdmin(BankData *);
 
-void add(CreditType *, Client *, Credit *, BankData *);
+void add(BankData *);
 
-void remove(CreditType *, Client *, Credit *, BankData *);
+void remove(BankData *);
 
-void removePart(CreditType *, Client *, Credit *);
+void removePart(BankData *);
 
-int deleteClients(Client *);
+int removeAll(BankData *);
 
-int deleteCredit(Credit *);
-
-int removeAll(CreditType *, Client *, Credit *);
-
-int viewAll(CreditType *, Client *, Credit *);
+int viewAll(BankData *);
 
 
 void head();

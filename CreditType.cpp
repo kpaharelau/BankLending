@@ -1,4 +1,3 @@
-#include <w32api/dshow.h>
 #include "CreditType.h"
 
 CreditType* readCreditTypes(){
@@ -65,8 +64,8 @@ CreditType* lastCreditType(CreditType* ptrCreditType){
 }
 
 CreditType * inputCreditType(CreditType *ptrCreditType) {
-    if (ptrCreditType != NULL)
-    ptrCreditType = lastCreditType(ptrCreditType);
+    if (ptrCreditType != NULL)                                     // что делает эта сточка в это части кода???
+    ptrCreditType = lastCreditType(ptrCreditType);                 // зачем нам проверять на пустоту
 
     int num;
     printf("Сколько вы хотите ввести кредитов:\n");
@@ -95,3 +94,32 @@ CreditType * inputCreditType(CreditType *ptrCreditType) {
 
     return ptrCreditType;
 }
+
+CreditType* deleteCreditType(CreditType *ptrCreditType){
+    int count = 0, choice;
+    ptrCreditType = firstCreditType(ptrCreditType);
+    printf("Выберите элемент для удаления.");
+    if (ptrCreditType != nullptr) {
+        while (ptrCreditType != NULL) {                // подсказка для людей
+            printf("/n%d. ", (count + 1));
+            printf("%d %s %d %d ", ptrCreditType->code_type, ptrCreditType->credit_name,
+                   ptrCreditType->rate, ptrCreditType->loan_period);
+            ptrCreditType = ptrCreditType->next;
+        }
+        choice = controlNumber();                       // выбор собираем
+                 if ( choice > count ) break;
+
+        ptrCreditType = firstCreditType(ptrCreditType); // указатель возвращаем в первоначальное состояние
+        for(int i = 0 ; i < count ; i ++){
+            ptrCreditType = ptrCreditType->next;        // катаем цикл до нужного элемента
+        }
+        ptrCreditType->next = ptrCreditType->prev;
+        delete(ptrCreditType);
+    }
+    else{
+        printf("Нет данных для удаления");
+    }
+}
+
+
+

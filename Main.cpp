@@ -8,9 +8,9 @@ int main() {
     bankData->creditType = readCreditTypes();
     bankData->client = readClient();
     bankData->credit = readCredit();
-    CreditType *ptrCreditType = readCreditTypes();
-    Credit *ptrCredit = readCredit();
-    Client*ptrClient = readClient();
+    //CreditType *ptrCreditType = readCreditTypes();   // разве строчки выше и это не одно и то же?
+    //Credit *ptrCredit = readCredit();
+    //Client*ptrClient = readClient();
     while (true) {
         printf("Главное меню ======= Выберите действие =======\n");
         printf("1. Вход под администратором.\n");
@@ -20,7 +20,7 @@ int main() {
         i = controlNumber();
         switch (i) {
             case 1:
-                menuAdmin(bankData, ptrCreditType, ptrClient, ptrCredit);
+                menuAdmin(bankData);
                 break;
             case 2:
                 menuUser();
