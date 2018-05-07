@@ -19,11 +19,11 @@ CreditType* readCreditTypes(){
                                &rate,
                                &loan_period);
             if (count != 4) {
-                break;                                                   //почему четыре
+                break;
             }
             ptrCreditType = new CreditType;
             ptrCreditType->code_type = code_type;
-            strcpy(ptrCreditType->credit_name, credit_name);              //выдает ошибку, т.к что-то не так со strcpy
+            strcpy(ptrCreditType->credit_name, credit_name);
             ptrCreditType->rate = rate;
             ptrCreditType->loan_period = loan_period;
 
