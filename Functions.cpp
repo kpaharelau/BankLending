@@ -19,7 +19,7 @@ void head() // заголовок
 }
 
 int viewAll(CreditType *start_creditType, Client *start_clients, Credit *start_credit) {
-    if (start_creditType == NULL || start_creditType == NULL || start_creditType == NULL) {
+    if (start_creditType == NULL || start_clients == NULL || start_credit == NULL) {
         return 1;
     } else {
         int i = 1;
@@ -58,18 +58,18 @@ void getTime(tm &newtime) {
 }
 // функция считывания времени с компьютера
 
-int controlNumber() {
+/*
+ * Контроль ввода именно чисел
+ */
+int getNumberFromKeyboard() {
     int res, i;
-    scanf("%d", &i);
+    do {
+        res = scanf("%d", &i);
+        while (getchar() != '\n');
+        if (res != 1) printf("Введите число!\n");
+    } while (res != 1);
     return i;
-//    do {
-//        = res  scanf("%d", &i);
-//        while (getchar() != '\n');
-//        if (res != 1) printf("Введите число!\n");
-//    } while (res != 1);
-//    return i;
 }
-// Контроль ввода именно чисел
 
 long getFileSize(FILE *input) {
     long fileSizeBytes;

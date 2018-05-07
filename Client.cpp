@@ -89,7 +89,7 @@ Client *inputClient(Client *ptrClient) {
         printf("%d. ", (i + 1));
         printf("\nВведите телефонный номер: ");
         fflush(stdin);
-        ptrNewClient->tel_number = controlNumber();
+        ptrNewClient->tel_number = getNumberFromKeyboard();
         printf("Введите фамилию клиента: ");
         fflush(stdin);
         scanf("%s", ptrNewClient->name_user.surname);

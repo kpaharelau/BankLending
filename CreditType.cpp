@@ -76,15 +76,15 @@ CreditType * inputCreditType(CreditType *ptrCreditType) {
         printf("%d. ", (i + 1));
         printf("Введите код кредита:\n");
         fflush(stdin);
-        ptrNewCreditType->code_type = controlNumber();
+        ptrNewCreditType->code_type = getNumberFromKeyboard();
         printf("Введите имя кредита:\n");
         fflush(stdin);
         scanf("%s", ptrNewCreditType->credit_name); // сделать проверки
         printf("Введите ставку кредита:\n");
         fflush(stdin);
-        ptrNewCreditType->rate = controlNumber();
+        ptrNewCreditType->rate = getNumberFromKeyboard();
         printf("Введите срок выдачи(в месяцах):\n");
-        ptrNewCreditType->loan_period = controlNumber();
+        ptrNewCreditType->loan_period = getNumberFromKeyboard();
         fflush(stdin);
 
         ptrNewCreditType->prev = ptrCreditType;
@@ -127,7 +127,7 @@ CreditType* deleteCreditType(CreditType *ptrCreditType){
         int choice = askForChoice(count);
         if (choice != -1) {
             ptrCreditType = firstCreditType(ptrCreditType); // указатель возвращаем в первоначальное состояние
-            for(int i = 0 ; i < choice ; i ++){
+            for(int i = 0 ; i < choice-1 ; i ++){
                 ptrCreditType = ptrCreditType->next;        // катаем цикл до нужного элемента
             }
             CreditType * ptrPrevCreditType = ptrCreditType->prev;
@@ -137,12 +137,19 @@ CreditType* deleteCreditType(CreditType *ptrCreditType){
             if (ptrPrevCreditType != NULL)
                 ptrPrevCreditType->next = ptrNextCreditType;
             delete(ptrCreditType);
+
+            if (ptrNextCreditType != NULL)
+                return ptrNextCreditType;
+            if (ptrPrevCreditType != NULL)
+                return ptrPrevCreditType;
+            return NULL;
         }
     }
-    else{
-        printf("Нет данных для удаления");
-    }
+
+    printf("Нет данных для удаления");
+    return NULL;
 }
+
 
 
 
