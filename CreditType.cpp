@@ -95,7 +95,11 @@ CreditType * inputCreditType(CreditType *ptrCreditType) {
 
     return ptrCreditType;
 }
-
+/**
+ *
+ * @param ptrCreditType
+ * @return
+ */
 int renderCreditTypes(CreditType *ptrCreditType){
     int count = 0;
 
