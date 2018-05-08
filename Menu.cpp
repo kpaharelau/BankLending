@@ -16,7 +16,7 @@ void menuAdmin(BankData* ptrBankData) {
         printf("6. Управление пользователями.\n");                                      // разобраться в будущем че как
         printf("0. Возврат в главное меню.\n");
         int i;
-        i = controlNumber();
+        i = getNumberFromKeyboard();
         if (i == 0) break;
         switch (i) {
             case 1:
@@ -53,7 +53,7 @@ void menuUser() {
         printf("4. Различные процедуры поиска и фильтраций данных.\n");
         printf("0. Возврат в главное меню.\n");
         int i;
-        i = controlNumber();
+        i = getNumberFromKeyboard();
         if (i == 0) break;
         switch (i) {
             case 1:
@@ -84,7 +84,7 @@ void add(BankData* ptrBankData ) {
         printf("3. Добавить кредит\n");
         printf("0. Возврат. \n");
         int i;
-        i = controlNumber();
+        i = getNumberFromKeyboard();
         if (i == 0) break;
         clearConsole();
         switch (i) {
@@ -108,13 +108,13 @@ void add(BankData* ptrBankData ) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 void remove(BankData* ptrBankData) {
-    while (1) {
-        printf("Администратор ======= Выберите действие =======\n");
+    while (true) {
+        printf("Администратор-Удаление ======= Выберите действие =======\n");
         printf("1. Удалить все\n");
         printf("2. Удалить элемент\n");
-        printf("0. Вход. \n");
+        printf("0. Возврат.\n");
         int i;
-        i = controlNumber();
+        i = getNumberFromKeyboard();
         if (i == 0) break;
         clearConsole();
         switch (i) {
@@ -131,18 +131,18 @@ void remove(BankData* ptrBankData) {
 }
 
 void removePart(BankData* ptrBankData) {
-    while (1) {
-        printf("Администратор ======= Выберите действие =======\n");
+    while (true) {
+        printf("Администратор-Удаление Элемента======= Выберите действие =======\n");
         printf("1. Удалить вид кредита\n");
         printf("2. Удалить клиента\n");
         printf("3. Удалить кредит\n");
-        printf("0. Вход. \n");
+        printf("0. Возврат.\n");
         int i;
-        i = controlNumber();
+        i = getNumberFromKeyboard();
         if (i == 0) break;
         clearConsole();
         switch (i) {
-            case 1: deleteCreditType(ptrBankData->creditType);
+            case 1: ptrBankData->creditType = deleteCreditType(ptrBankData->creditType);
                 break;
             case 2:
                 break;
@@ -154,31 +154,38 @@ void removePart(BankData* ptrBankData) {
     }
 }
 
-int removeAll(BankData* ptrBankData) {
+int removeAll(BankData *ptrBankData) {
 
     while (true) {
-        printf("Администратор ======= Выберите действие =======\n");
+        printf("Вы уверены, что хотите удалить все?\n");
         printf("1. Да\n");
         printf("2. Нет\n");
-        int i = controlNumber();
+        int i = getNumberFromKeyboard();
         if (i == 2) break;
         clearConsole();
         switch (i) {
-            case 1:
-                /*void deleteDblLinkedList(DblLinkedList **list) {
-    Node *tmp = (*list)->head;
-    Node *next = NULL;
-    while (tmp) {
-        next = tmp->next;
-        free(tmp);
-        tmp = next;
-    }
-    free(*list);
-    (*list) = NULL;
-}*/
-//                CreditType *ptrDeliteCreditType = firstCreditType(ptrCreditType); ;
-                ptrBankData->creditType = nullptr;
+            case 1: {
+                CreditType* ptrCreditType = firstCreditType(ptrBankData->creditType);
+                while (ptrCreditType != NULL) {
+                    ptrCreditType = ptrCreditType->next;
+                    delete ptrCreditType->prev;
+                }
+                ptrBankData->creditType = NULL;
 
+                Client* ptrClient = firstClient(ptrBankData->client);
+                while (ptrClient != NULL) {
+                    ptrClient = ptrClient->next;
+                    delete ptrClient->prev;
+                }
+                ptrBankData->client = NULL;
+
+                Credit* ptrCredit= firstCredit(ptrBankData->credit);
+                while (ptrCredit != NULL) {
+                    ptrCredit = ptrCredit->next;
+                    delete ptrCredit->prev;
+                }
+                ptrBankData->credit = NULL;
+            }
                 break;
             default:
                 printf("Введите числа от 1 до 2:  ");

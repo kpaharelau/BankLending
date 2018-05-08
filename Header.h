@@ -61,7 +61,7 @@ struct BankData {
     Credit *credit;
 };
 
-int controlNumber();
+int getNumberFromKeyboard();
 
 void menuAdmin(BankData *);
 

@@ -1,4 +1,3 @@
-#include <pgtypes_date.h>
 #include "Credit.h"
 #include "Header.h"
 
@@ -74,23 +73,23 @@ Credit * inputCredit(Credit *ptrCredit) {
         Credit *ptrNewCredit = new Credit;
         printf("%d. ", (i + 1));
         printf("\nВведите код кредита: "); // сделать проверку и вывести
-        ptrNewCredit->code_type = controlNumber();
+        ptrNewCredit->code_type = getNumberFromKeyboard();
         fflush(stdin);
         printf("Введите телефонный номер: "); //сделать проверку на существование такого номера и вывести все номера перед вводом
-        ptrNewCredit->tel_number = controlNumber();
+        ptrNewCredit->tel_number = getNumberFromKeyboard();
         printf("Введите сумму кредита: ");
         fflush(stdin);
-        ptrNewCredit->amount = controlNumber();
+        ptrNewCredit->amount = getNumberFromKeyboard();
         printf("Введите дату выдачи\n: ");
         printf("д: ");
         fflush(stdin);
-        ptrNewCredit->date.day = controlNumber();
+        ptrNewCredit->date.day = getNumberFromKeyboard();
         printf("м: ");
         fflush(stdin);
-        ptrNewCredit->date.month = controlNumber();  // сделать дополнительные проверки
+        ptrNewCredit->date.month = getNumberFromKeyboard();  // сделать дополнительные проверки
         printf("г: ");
         fflush(stdin);
-        ptrNewCredit->date.year = controlNumber();
+        ptrNewCredit->date.year = getNumberFromKeyboard();
     }
     return ptrCredit;
 }
