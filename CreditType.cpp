@@ -1,16 +1,25 @@
 #include <cstring>
+
 #include "CreditType.h"
 
+
+void headCreditType() // заголовок
+{
+    printf("-----------------------------------------------------------------\n");
+    printf("|  №  | Номер  кредита |  Название кредита  |  Проценты |  Срок |\n");
+    printf("-----------------------------------------------------------------\n");
+}
+
+///////////////////////// ВЫВОД ИЗ ФАЙЛА ///////////////////////////////////////////////////////////////////////////////
 CreditType* readCreditTypes(){
     CreditType *ptrCreditType = nullptr;
     if(isFileExists("CreditType.txt")){
         FILE *ptrCreditTypeFile = fopen("CreditType.txt", "r");
 
-        long size = getFileSize(ptrCreditTypeFile);
         CreditType *ptrPrevCreditType = nullptr;
         while (true) {
             int code_type;          // код кредита
-            char credit_name[100];  // имя кредита
+            char credit_name[20];  // имя кредита
             int rate;               // ставка
             int loan_period;        // срок выдачи
             int count = fscanf(ptrCreditTypeFile, "%d %s %d %d ",
@@ -38,18 +47,19 @@ CreditType* readCreditTypes(){
 
     return ptrCreditType;
 }
-
+///////////////////////// ВВОД В ФАЙЛ //////////////////////////////////////////////////////////////////////////////////
 void recordCreditTypes(CreditType *ptrCreditType) {
     FILE *ptrCreditTypeFiles = fopen("CreditType.txt", "w+");
     ptrCreditType = firstCreditType(ptrCreditType);
     while (ptrCreditType != NULL) {
-        fprintf(ptrCreditTypeFiles, "%d %s %d %d ", ptrCreditType->code_type, ptrCreditType->credit_name,
+        fprintf(ptrCreditTypeFiles, "%d %s %d %d\n", ptrCreditType->code_type, ptrCreditType->credit_name,
                 ptrCreditType->rate, ptrCreditType->loan_period);
         ptrCreditType = ptrCreditType->next;
     }
     fclose(ptrCreditTypeFiles);
 }
 
+///////////////////////// ПЕРВЫЙ ЭЛЕМЕНТ ///////////////////////////////////////////////////////////////////////////////
 CreditType *firstCreditType(CreditType *ptrCreditType) {
     while (ptrCreditType != NULL && ptrCreditType->prev != NULL) {
         ptrCreditType = ptrCreditType->prev;
@@ -57,6 +67,7 @@ CreditType *firstCreditType(CreditType *ptrCreditType) {
     return ptrCreditType;
 }
 
+///////////////////////// ПОСЛЕДНИЙ ЭЛЕМЕНТ ////////////////////////////////////////////////////////////////////////////
 CreditType* lastCreditType(CreditType* ptrCreditType){
     while (ptrCreditType != NULL && ptrCreditType->next != NULL) {
         ptrCreditType = ptrCreditType->next;
@@ -64,9 +75,10 @@ CreditType* lastCreditType(CreditType* ptrCreditType){
     return ptrCreditType;
 }
 
+///////////////////////// ВВОД С КЛАВИАТУРЫ ////////////////////////////////////////////////////////////////////////////
 CreditType * inputCreditType(CreditType *ptrCreditType) {
-    if (ptrCreditType != NULL)                                     // что делает эта сточка в это части кода???
-    ptrCreditType = lastCreditType(ptrCreditType);                 // зачем нам проверять на пустоту
+    if (ptrCreditType != NULL)                                     //Проверяем на пустоту, для возможной записи в конец файла
+    ptrCreditType = lastCreditType(ptrCreditType);
 
     int num;
     printf("Сколько вы хотите ввести кредитов:\n");
@@ -74,16 +86,16 @@ CreditType * inputCreditType(CreditType *ptrCreditType) {
     for (int i = 0; i < num; i++) {
         CreditType *ptrNewCreditType = new CreditType;
         printf("%d. ", (i + 1));
-        printf("Введите код кредита:\n");
+        printf("Введите код кредита: ");
         fflush(stdin);
         ptrNewCreditType->code_type = getNumberFromKeyboard();
-        printf("Введите имя кредита:\n");
+        printf("Введите имя кредита: ");
         fflush(stdin);
         scanf("%s", ptrNewCreditType->credit_name); // сделать проверки
-        printf("Введите ставку кредита:\n");
+        printf("Введите ставку кредита: ");
         fflush(stdin);
         ptrNewCreditType->rate = getNumberFromKeyboard();
-        printf("Введите срок выдачи(в месяцах):\n");
+        printf("Введите срок выдачи(в месяцах): ");
         ptrNewCreditType->loan_period = getNumberFromKeyboard();
         fflush(stdin);
 
@@ -95,38 +107,11 @@ CreditType * inputCreditType(CreditType *ptrCreditType) {
 
     return ptrCreditType;
 }
-/**
- *
- * @param ptrCreditType
- * @return
- */
-int renderCreditTypes(CreditType *ptrCreditType){
-    int count = 0;
 
-        ptrCreditType = firstCreditType(ptrCreditType);
-        while (ptrCreditType != NULL) {                // подсказка для людей
-            printf("%d. ", (count + 1));
-            printf("%d %s %d %d\n", ptrCreditType->code_type, ptrCreditType->credit_name,
-                   ptrCreditType->rate, ptrCreditType->loan_period);
-            ptrCreditType = ptrCreditType->next;
-            count++;
-    }
-    return count;
-}
-
-int askForChoice(int count){
-    int choice;
-    while (true){
-        scanf("%d" , &choice);                       // проверка
-        if ( choice <= count || choice == -1) break;
-        printf("Проверьте число!");
-    }
-    return choice;
-}
-
+///////////////////////// УДАЛЕНИЕ ОДНОГО/ НЕСКОЛЬКИХ ЭЛЕМЕНТОВ ////////////////////////////////////////////////////////
 CreditType* deleteCreditType(CreditType *ptrCreditType){
     if (ptrCreditType != nullptr) {
-        int count = renderCreditTypes(ptrCreditType);
+        int count = viewCreditType(ptrCreditType);
         printf("Выберите элемент для удаления или -1 для выхода.\n");
         int choice = askForChoice(count);
         if (choice != -1) {
@@ -149,11 +134,24 @@ CreditType* deleteCreditType(CreditType *ptrCreditType){
             return NULL;
         }
     }
-
     printf("Нет данных для удаления");
-    return NULL;
+    return ptrCreditType;
 }
 
-
+///////////////////////// ПРОСМОТР ДАННЫХ В ТАБЛИЧНОЙ ФОРМЕ  ///////////////////////////////////////////////////////////
+int viewCreditType(CreditType *ptrCreditType){
+    int count = 0;
+    headCreditType();
+    ptrCreditType = firstCreditType(ptrCreditType);
+    while (ptrCreditType != NULL) {                // подсказка для людей
+        printf("|%-5d", (count + 1));
+        printf("|%-16d|%-20s|%-11d|%-7d|\n", ptrCreditType->code_type, ptrCreditType->credit_name,
+               ptrCreditType->rate, ptrCreditType->loan_period);
+        printf("-----------------------------------------------------------------\n");
+        ptrCreditType = ptrCreditType->next;
+        count++;
+    }
+    return count;
+}
 
 

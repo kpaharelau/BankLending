@@ -19,7 +19,7 @@
 
 struct CreditType {
     int code_type;          // код кредита
-    char credit_name[100];  // имя кредита
+    char credit_name[20];  // имя кредита
     int rate;               // ставка
     int loan_period;        // срок выдачи
     CreditType *next;

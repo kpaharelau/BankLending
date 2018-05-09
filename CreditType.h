@@ -7,4 +7,5 @@ CreditType* firstCreditType(CreditType* ptrCreditType);        //определ�
 CreditType* lastCreditType(CreditType* ptrCreditType);         //определение первого элемента
 CreditType* inputCreditType(CreditType *ptrCreditType);        //ввод вида кредита
 CreditType* deleteCreditType(CreditType *ptrCreditType);       // удаление
-int renderCreditTypes(CreditType *ptrCreditType);              // показывает виды кредита
+int viewCreditType(CreditType *ptrCreditType);
+void headCreditType();

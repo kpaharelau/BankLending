@@ -95,7 +95,7 @@ void add(BankData* ptrBankData ) {
                 ptrBankData->client = inputClient(ptrBankData->client);
                 break;
             case 3:
-                ptrBankData->credit = inputCredit(ptrBankData->credit);
+                ptrBankData->credit = inputCredit(ptrBankData->creditType, ptrBankData->client, ptrBankData->credit);
                 break;
             default:
                 printf("Введите числа от 0 до 3:  ");
@@ -144,9 +144,9 @@ void removePart(BankData* ptrBankData) {
         switch (i) {
             case 1: ptrBankData->creditType = deleteCreditType(ptrBankData->creditType);
                 break;
-            case 2:
+            case 2: ptrBankData->client = deleteClient(ptrBankData->client);
                 break;
-            case 3:
+            case 3: ptrBankData->credit = deleteCredit(ptrBankData->credit);
                 break;
             default:
                 printf("Введите числа от 0 до 3:  ");
@@ -167,6 +167,7 @@ int removeAll(BankData *ptrBankData) {
             case 1: {
                 CreditType* ptrCreditType = firstCreditType(ptrBankData->creditType);
                 while (ptrCreditType != NULL) {
+                    ptrCreditType->prev = ptrCreditType;
                     ptrCreditType = ptrCreditType->next;
                     delete ptrCreditType->prev;
                 }
@@ -186,7 +187,7 @@ int removeAll(BankData *ptrBankData) {
                 }
                 ptrBankData->credit = NULL;
             }
-                break;
+                return 0;
             default:
                 printf("Введите числа от 1 до 2:  ");
         }

@@ -1,9 +1,10 @@
 #include <cstring>
-#include "CreditType.h"
+#include "Client.h"
 #include "Header.h"
 
-Client *firstClient(Client *ptrClient);
+Client* firstClient(Client* ptrClient);
 
+///////////////////////// ВЫВОД ИЗ ФАЙЛА ////////////////////////////////
 Client *readClient() {
     Client *ptrClient = nullptr;
     if (isFileExists("Client.txt")) {
@@ -16,7 +17,7 @@ Client *readClient() {
             char user_surname[26];      // фамилия   // кредитополучатель
             char address[28];           // адрес
             char guarantor_name[18];    // имя поручитель
-            char guarantor_surname[26]; // фамилия поручитель
+            char guarantor_surname[26]; // фамилия поручителя
             int count = fscanf(ptrClientFile, "%d %s %s %s %s %s ",
                                &tel_number,
                                user_surname,
@@ -37,7 +38,7 @@ Client *readClient() {
 
             if (ptrPrevClient != nullptr) {
                 ptrPrevClient->next = ptrClient;
-                ptrClient->prev = ptrClient;
+                ptrClient->prev = ptrPrevClient;
             }
             ptrPrevClient = ptrClient;
         }
@@ -46,11 +47,12 @@ Client *readClient() {
     return ptrClient;
 }
 
+///////////////////////// ВВОД В ФАЙЛ ////////////////////////////////
 void recordClient(Client *ptrClient) {
     FILE *ptrClientFiles = fopen("Client.txt", "w+");
     ptrClient = firstClient(ptrClient);
     while (ptrClient != NULL) {
-        fprintf(ptrClientFiles, "%d %s %s %s %s %s ",
+        fprintf(ptrClientFiles, "%d %s %s %s %s %s\n",
                 ptrClient->tel_number,
                 ptrClient->name_user.surname,
                 ptrClient->name_user.name,
@@ -62,6 +64,7 @@ void recordClient(Client *ptrClient) {
     fclose(ptrClientFiles);
 }
 
+///////////////////////// ПЕРВЫЙ ЭЛЕМЕНТ ////////////////////////////////
 Client *firstClient(Client *ptrClient) {
     while (ptrClient != NULL && ptrClient->prev != NULL) {
         ptrClient = ptrClient->prev;
@@ -69,6 +72,7 @@ Client *firstClient(Client *ptrClient) {
     return ptrClient;
 }
 
+///////////////////////// ПОСЛЕДНИЙ ЭЛЕМЕНТ ////////////////////////////////
 Client *lastClient(Client *ptrClient) {
     while (ptrClient != NULL && ptrClient->next != NULL) {
         ptrClient = ptrClient->next;
@@ -76,6 +80,7 @@ Client *lastClient(Client *ptrClient) {
     return ptrClient;
 }
 
+///////////////////////// ВВОД С КЛАВИАТУРЫ ////////////////////////////////
 Client *inputClient(Client *ptrClient) {
     if (ptrClient != NULL)
         ptrClient = lastClient(ptrClient);
@@ -87,7 +92,7 @@ Client *inputClient(Client *ptrClient) {
     for (int i = 0; i < num; i++) {
         Client *ptrNewClient = new Client;
         printf("%d. ", (i + 1));
-        printf("\nВведите телефонный номер: ");
+        printf("Введите телефонный номер: ");
         fflush(stdin);
         ptrNewClient->tel_number = getNumberFromKeyboard();
         printf("Введите фамилию клиента: ");
@@ -106,11 +111,65 @@ Client *inputClient(Client *ptrClient) {
         fflush(stdin);
         scanf("%s", ptrNewClient->guarantor.name);
 
-        ptrNewClient->prev = ptrNewClient;
-        if (ptrNewClient != NULL)
-            ptrNewClient->next = ptrNewClient;
+        ptrNewClient->prev = ptrClient;
+        if (ptrClient != NULL)
+            ptrClient->next = ptrNewClient;
         ptrClient = ptrNewClient;
     }
 
     return ptrClient;
 }
+
+///////////////////////// УДАЛЕНИЕ ОДНОГО/ НЕСКОЛЬКИХ ЭЛЕМЕНТОВ ////////////////////////////////
+Client* deleteClient(Client *ptrClient){
+    if (ptrClient!= nullptr) {
+        int count = viewClient(ptrClient);
+        printf("Выберите элемент для удаления или -1 для выхода.\n");
+        int choice = askForChoice(count);
+        if (choice != -1) {
+            ptrClient = firstClient(ptrClient); // указатель возвращаем в первоначальное состояние
+            for(int i = 0 ; i < choice-1 ; i ++){
+                ptrClient = ptrClient->next;        // катаем цикл до нужного элемента
+            }
+            Client * ptrPrevClient = ptrClient->prev;
+            Client * ptrNextClient = ptrClient->next;
+            if (ptrNextClient != NULL)
+                ptrNextClient->prev = ptrPrevClient;
+            if (ptrPrevClient != NULL)
+                ptrPrevClient->next = ptrNextClient;
+            delete(ptrClient);
+
+            if (ptrNextClient != NULL)
+                return ptrNextClient;
+            if (ptrPrevClient != NULL)
+                return ptrPrevClient;
+            return NULL;
+        }
+    }
+    printf("Нет данных для удаления");
+    return ptrClient;
+}
+
+///////////////////////// ПРОСМОТР ДАННЫХ В ТАБЛИЧНОЙ ФОРМЕ  ////////////////////////////////
+int viewClient(Client *ptrClient){
+    int count = 0;
+    headClient();
+    ptrClient = firstClient(ptrClient);
+    while (ptrClient != NULL) {                // подсказка для людей
+        printf("|%-5d", (count + 1));
+        printf("|%-16d|%-26s|%-18s|\n", ptrClient->tel_number, ptrClient->name_user.surname,
+               ptrClient->name_user.name);
+        printf("----------------------------------------------------------------------\n");
+        ptrClient = ptrClient->next;
+        count++;
+    }
+    return count;
+}
+
+void headClient() // заголовок
+{
+    printf("----------------------------------------------------------------------\n");
+    printf("|  №  | Номер телефона |      Фамилия клиента     |   Имя  клиента   |\n");
+    printf("----------------------------------------------------------------------\n");
+}
+
