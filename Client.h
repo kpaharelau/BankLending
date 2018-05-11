@@ -9,3 +9,4 @@ Client* inputClient(Client *ptrClient);         //ввод вида кредит
 Client* deleteClient(Client *ptrClient);       // удаление
 int viewClient(Client *ptrClient);
 void headClient();
+Client* editClient(Client *ptrClient);

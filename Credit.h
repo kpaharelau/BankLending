@@ -7,6 +7,7 @@ Credit* firstCredit(Credit* ptrCredit);         //определение кон�
 Credit* lastCredit(Credit* ptrCredit);          //определение первого элемента
 Credit* inputCredit(CreditType *ptrCreditType, Client* ptrClient, Credit *ptrCredit );        //ввод вида кредита
 Credit* deleteCredit(Credit *ptrCredit);
+Credit* editCredit(Credit *ptrCredit);
 int viewCredit(Credit *ptrCredit);
 void headCredit();
 int CheckingPointers(CreditType *ptrCreditType, Client* ptrClient);

@@ -94,7 +94,13 @@ Client *inputClient(Client *ptrClient) {
         printf("%d. ", (i + 1));
         printf("Введите телефонный номер: ");
         fflush(stdin);
-        ptrNewClient->tel_number = getNumberFromKeyboard();
+        while(true){
+            ptrNewClient->tel_number = getNumberFromKeyboard();
+            if((ptrNewClient->tel_number >= 375000000000) && (ptrNewClient->tel_number <= 375999999999)){
+                break;
+            }
+            printf("Проверьте номер!\n");
+        }
         printf("Введите фамилию клиента: ");
         fflush(stdin);
         scanf("%s", ptrNewClient->name_user.surname);
@@ -122,9 +128,11 @@ Client *inputClient(Client *ptrClient) {
 
 ///////////////////////// УДАЛЕНИЕ ОДНОГО/ НЕСКОЛЬКИХ ЭЛЕМЕНТОВ ////////////////////////////////
 Client* deleteClient(Client *ptrClient){
+
     if (ptrClient!= nullptr) {
         int count = viewClient(ptrClient);
         printf("Выберите элемент для удаления или -1 для выхода.\n");
+        fflush(stdin);
         int choice = askForChoice(count);
         if (choice != -1) {
             ptrClient = firstClient(ptrClient); // указатель возвращаем в первоначальное состояние
@@ -146,7 +154,7 @@ Client* deleteClient(Client *ptrClient){
             return NULL;
         }
     }
-    printf("Нет данных для удаления");
+    printf("Нет данных для удаления\n");
     return ptrClient;
 }
 
@@ -157,10 +165,9 @@ int viewClient(Client *ptrClient){
     ptrClient = firstClient(ptrClient);
     while (ptrClient != NULL) {                // подсказка для людей
         printf("|%-5d", (count + 1));
-        printf("|%-16d|%-26s|%-18s|\n", ptrClient->tel_number, ptrClient->name_user.surname,
-               ptrClient->name_user.name);
-        printf("----------------------------------------------------------------------\n");
-        ptrClient = ptrClient->next;
+        printf("|%-16d|%-26s|%-18s|%-28d|%-26s|%-18s| \n", ptrClient->tel_number, ptrClient->name_user.surname,
+               ptrClient->name_user.name, ptrClient->address, ptrClient->guarantor.surname, ptrClient->guarantor.name);
+        printf("--------------------------------------------------------------------------------------------------------------------------------------------------\n");        ptrClient = ptrClient->next;
         count++;
     }
     return count;
@@ -168,8 +175,12 @@ int viewClient(Client *ptrClient){
 
 void headClient() // заголовок
 {
-    printf("----------------------------------------------------------------------\n");
-    printf("|  №  | Номер телефона |      Фамилия клиента     |   Имя  клиента   |\n");
-    printf("----------------------------------------------------------------------\n");
+    printf("-----------------------------------------------------------------------------------------------------------------------------------------------x--\n");
+    printf("|  №  | Номер телефона |      Фамилия клиента     |   Имя  клиента   |          Адрес             |     Фамилия поручителя   |  Имя  поручителя |\n");
+    printf("-------------------------------------------------------------------------------------------------------------------------------------------------\n");
+    fflush(stdin);
 }
 
+Client* editClient(Client *ptrClient){
+
+}

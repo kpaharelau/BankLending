@@ -9,3 +9,5 @@ CreditType* inputCreditType(CreditType *ptrCreditType);        //ввод вид
 CreditType* deleteCreditType(CreditType *ptrCreditType);       // удаление
 int viewCreditType(CreditType *ptrCreditType);
 void headCreditType();
+CreditType* editCreditType(CreditType *ptrCreditType);
+CreditType * mainInputCreditType(CreditType *ptrCreditType);

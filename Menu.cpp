@@ -8,13 +8,13 @@ void menuAdmin(BankData* ptrBankData) {
     while (true) {
         clearConsole();
         printf("Администратор ======= Выберите действие =======\n");
-        printf("1. Добавление записи.\n"); // для пустого и нет                         //
-        printf("2. Редактирование записи.\n");
+        printf("1. Добавление записи.\n");                                              //
+        printf("2. Редактирование записи.\n");                                          //
         printf("3. Удаление записи.\n");                                                //
         printf("4. Просмотр всех данных в табличной форме.\n");                         //
         printf("5. Различные процедуры поиска и фильтрации данных.\n");
         printf("6. Управление пользователями.\n");                                      // разобраться в будущем че как
-        printf("0. Возврат в главное меню.\n");
+        printf("0. Возврат в главное меню.\n");                                         //
         int i;
         i = getNumberFromKeyboard();
         if (i == 0) break;
@@ -22,16 +22,13 @@ void menuAdmin(BankData* ptrBankData) {
             case 1:
                 add(ptrBankData);
                 break;
-            case 2:
+            case 2: edit(ptrBankData);
                 break;
             case 3:
                 remove(ptrBankData);
                 break;
             case 4:
-                test = viewAll(ptrBankData);
-                if (test == 1) {
-                    printf("Нет достаточного количества данных \n");
-                }
+                viewAll(ptrBankData->creditType, ptrBankData->client, ptrBankData->credit);
                 getchar();
                 break;
             case 5:
@@ -78,7 +75,7 @@ void menuUser() {
 
 void add(BankData* ptrBankData ) {
     while (true) {
-        printf("Администратор ======= Выберите действие =======\n");
+        printf("Администратор-Добавление ======= Выберите действие =======\n");
         printf("1. Добавить вид кредита\n");
         printf("2. Добавить клиента\n");
         printf("3. Добавить кредит\n");
@@ -165,15 +162,15 @@ int removeAll(BankData *ptrBankData) {
         clearConsole();
         switch (i) {
             case 1: {
-                CreditType* ptrCreditType = firstCreditType(ptrBankData->creditType);
+                CreditType *ptrCreditType = firstCreditType(ptrBankData->creditType);
                 while (ptrCreditType != NULL) {
                     ptrCreditType->prev = ptrCreditType;
                     ptrCreditType = ptrCreditType->next;
                     delete ptrCreditType->prev;
                 }
                 ptrBankData->creditType = NULL;
-
-                Client* ptrClient = firstClient(ptrBankData->client);
+            }
+             /*   Client* ptrClient = firstClient(ptrBankData->client);
                 while (ptrClient != NULL) {
                     ptrClient = ptrClient->next;
                     delete ptrClient->prev;
@@ -186,7 +183,7 @@ int removeAll(BankData *ptrBankData) {
                     delete ptrCredit->prev;
                 }
                 ptrBankData->credit = NULL;
-            }
+            }*/
                 return 0;
             default:
                 printf("Введите числа от 1 до 2:  ");
@@ -195,3 +192,26 @@ int removeAll(BankData *ptrBankData) {
     return 0;
 }
 
+void edit(BankData* ptrBankData){
+    while (true) {
+        printf("Администратор-Редактирование Элемента ======= Выберите действие =======\n");
+        printf("1. Редактирование вида кредита\n");
+        printf("2. Редактирование клиента\n");
+        printf("3. Редактирование кредит\n");
+        printf("0. Возврат.\n");
+        int i;
+        i = getNumberFromKeyboard();
+        if (i == 0) break;
+        clearConsole();
+        switch (i) {
+            case 1: ptrBankData->creditType = editCreditType(ptrBankData->creditType);
+                break;
+            case 2: ptrBankData->client = editClient(ptrBankData->client);
+                break;
+            case 3: ptrBankData->credit = editCredit(ptrBankData->credit);
+                break;
+            default:
+                printf("Введите числа от 0 до 3:  ");
+        }
+    }
+}

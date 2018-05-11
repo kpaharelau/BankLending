@@ -73,7 +73,7 @@ void removePart(BankData *);
 
 int removeAll(BankData *);
 
-int viewAll(BankData *);
+void viewAll(CreditType *ptrCreditType, Client* ptrClient, Credit *ptrCredit);
 
 int askForChoice(int count);
 
@@ -89,9 +89,10 @@ void clearConsole();
 
 int isFileExists(const char *name);
 
-
+void edit(BankData *);
 
 // РАЗОБРАТЬСЯ С ФСЕЕК и функцией long getFileSize(FILE* input);
 // ДОБАВИТЬ ПРОВЕРКИ НА ПУСТОТУ СТЕКА И НА ВВОД ЧИСЕЛ С ТЕКТСТОМ
 // разобраться с удалением
 // выяснить причину использования не прямых указателей, а передачей его сожержимого в другой и работой с другим
+// три кредитополучателя , который взяли кредит на самый большой срок.

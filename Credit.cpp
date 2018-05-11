@@ -14,24 +14,26 @@ Credit* readCredit(){
             int code_type;        // код типа кредита
             int tel_number;       // телефонный номер
             int amount;           // сумма
-            Date date;
-            int count = fscanf(ptrCreditFile, "%d %d %d %d %d %d " ,
+            int date_day;
+            int date_month;
+            int date_year;
+            int count = fscanf(ptrCreditFile, "%d %d %d %d %d %d" ,
                     &code_type,
                     &tel_number,
                     &amount,
-                    &date.day,
-                    &date.month,
-                    &date.year);
+                    &date_day,
+                    &date_month,
+                    &date_year);
             if(count != 6){
                 break;
             }
-            Credit* ptrCredit = new Credit;             //создаем для указателя динамическую пямять с учетом того, что он пока равен null
+            ptrCredit = new Credit;             //создаем для указателя динамическую пямять с учетом того, что он пока равен null
             ptrCredit->code_type = code_type;
             ptrCredit->tel_number = tel_number;
             ptrCredit->amount = amount;
-            ptrCredit->date.day = date.day;
-            ptrCredit->date.month = date.month;
-            ptrCredit->date.year = date.year;
+            ptrCredit->date.day = date_day;
+            ptrCredit->date.month = date_month;
+            ptrCredit->date.year = date_year;
             if (ptrPrevCredit != nullptr){
                 ptrPrevCredit->next = ptrCredit;
                 ptrCredit->prev = ptrPrevCredit;
@@ -48,7 +50,7 @@ void recordCredit(Credit *ptrCredit){
     FILE *ptrCreditFiles = fopen("Credit.txt", "w+");
     ptrCredit = firstCredit(ptrCredit);
     while (ptrCredit != NULL) {
-        fprintf(ptrCreditFiles, "%d %d %d %d %d\n", ptrCredit->code_type , ptrCredit->amount , ptrCredit->amount, ptrCredit->date.day,  ptrCredit->date.month , ptrCredit->date.year );
+        fprintf(ptrCreditFiles, "%d %d %d %d %d %d\n", ptrCredit->code_type , ptrCredit->tel_number , ptrCredit->amount, ptrCredit->date.day,  ptrCredit->date.month , ptrCredit->date.year );
         ptrCredit = ptrCredit->next;
     }
     fclose(ptrCreditFiles);
@@ -71,6 +73,7 @@ Credit* lastCredit(Credit* ptrCredit){
 
 ///////////////////////// ВВОД С КЛАВИАТУРЫ ////////////////////////////////////////////////////////////////////////////
 Credit* inputCredit(CreditType *ptrCreditType, Client* ptrClient, Credit *ptrCredit) {
+    int count;
     if ( CheckingPointers(ptrCreditType, ptrClient) == 1){
         return ptrCredit;
     }
@@ -78,53 +81,77 @@ Credit* inputCredit(CreditType *ptrCreditType, Client* ptrClient, Credit *ptrCre
         ptrCredit = lastCredit(ptrCredit);
 
     int num;
+
     printf("Сколько вы хотите ввести кредитов:\n");
+    fflush(stdin);
     scanf("%d", &num);
     for (int i = 0; i < num; i++) {
         Credit *ptrNewCredit = new Credit;
         printf("%d. ", (i + 1));
-        printf("Введите код кредита: "); // сделать проверку и вывести
-        ptrCreditType = firstCreditType(ptrCreditType);
-        ptrNewCredit->code_type = getNumberFromKeyboard();
-        while(true){
-            if(ptrNewCredit->code_type == ptrCreditType->code_type){
-                break;
-            }
-            ptrCreditType = ptrCreditType->next;
-            if(ptrCreditType == nullptr){
-                printf("Такого кредита нет. Попробуйте еще.");
-                ptrNewCredit->code_type = getNumberFromKeyboard();
-                ptrCreditType = firstCreditType(ptrCreditType);
-            }
-        }
+        printf("Выберите вид кредита или -1 для выхода.\n");
         fflush(stdin);
-        printf("Введите телефонный номер: ");
-        ptrClient= firstClient(ptrClient);
-        ptrNewCredit->tel_number = getNumberFromKeyboard();                       //сделать проверку на существование такого номера и вывести все номера перед вводом
-        while(true){
-            if(ptrNewCredit->tel_number == ptrClient->tel_number){
-                break;
+        count = viewCreditType(ptrCreditType);
+        int choice = askForChoice(count);
+        if (choice != -1) {
+            ptrCreditType = firstCreditType(ptrCreditType); // указатель возвращаем в первоначальное состояние
+            for(int i = 0 ; i < choice-1 ; i ++){
+                ptrCreditType = ptrCreditType->next;        // катаем цикл до нужного элемента
             }
-            ptrClient = ptrClient->next;
-            if(ptrClient == nullptr){
-                printf("Такого клиента. Попробуйте еще.");
-                ptrNewCredit->tel_number = getNumberFromKeyboard();
-                ptrClient= firstClient(ptrClient);
-            }
+            ptrNewCredit->code_type = ptrCreditType->code_type;
         }
+        else
+            return ptrCredit;
+
+        printf("Выберите клиента или -1 для выхода.\n");
+        fflush(stdin);
+        count = viewClient(ptrClient);
+        choice = askForChoice(count);
+        if (choice != -1) {
+            ptrClient = firstClient(ptrClient); // указатель возвращаем в первоначальное состояние
+            for(int i = 0 ; i < choice-1 ; i ++){
+                ptrClient = ptrClient->next;        // катаем цикл до нужного элемента
+            }
+            ptrNewCredit->tel_number = ptrClient->tel_number;
+        }
+        else
+            return ptrCredit;
         printf("Введите сумму кредита: ");
         fflush(stdin);
         ptrNewCredit->amount = getNumberFromKeyboard();
         printf("Введите дату выдачи:\n");
-        printf("д: ");
+        printf("день: ");
         fflush(stdin);
-        ptrNewCredit->date.day = getNumberFromKeyboard();
-        printf("м: ");
+        while(true){
+            ptrNewCredit->date.day = getNumberFromKeyboard();
+            if(ptrNewCredit->date.day >= 1 && ptrNewCredit->date.day <= 31){
+                break;
+            }
+            else
+            printf("Проверьте дату!\n");
+        }
+        printf("месяц: ");
         fflush(stdin);
-        ptrNewCredit->date.month = getNumberFromKeyboard();  // сделать дополнительные проверки
-        printf("г: ");
+        while(true){
+            ptrNewCredit->date.month = getNumberFromKeyboard();
+            if((ptrNewCredit->date.month >= 1) && (ptrNewCredit->date.month <= 12)){
+                break;
+            }
+            printf("Проверьте дату!\n");
+        }
+        printf("год: ");
         fflush(stdin);
-        ptrNewCredit->date.year = getNumberFromKeyboard();
+        while(true){
+            ptrNewCredit->date.year = getNumberFromKeyboard();
+            if((ptrNewCredit->date.year <= 2018) && (ptrNewCredit->date.year >= 2000 )){
+                break;
+            }
+            printf("Проверьте дату!\n");
+        }
+
+        ptrNewCredit->prev = ptrCredit;
+        if (ptrCredit != NULL)
+            ptrCredit->next = ptrNewCredit;
+        ptrCredit = ptrNewCredit;
     }
     return ptrCredit;
 }
@@ -134,6 +161,7 @@ Credit* deleteCredit(Credit *ptrCredit){
     if (ptrCredit != nullptr) {
         int count = viewCredit(ptrCredit);
         printf("Выберите элемент для удаления или -1 для выхода.\n");
+        fflush(stdin);
         int choice = askForChoice(count);
         if (choice != -1) {
             ptrCredit = firstCredit(ptrCredit); // указатель возвращаем в первоначальное состояние
@@ -155,19 +183,21 @@ Credit* deleteCredit(Credit *ptrCredit){
             return NULL;
         }
     }
-    printf("Нет данных для удаления");
+    printf("Нет данных для удаления\n");
+    fflush(stdin);
     return ptrCredit;
 }
 
+///////////////////////// ВЫВОД НА ЭКРАН ///////////////////////////////////////////////////////////////////////////////
 int viewCredit(Credit *ptrCredit){
         int count = 0;
         headCredit();
         ptrCredit = firstCredit(ptrCredit);
         while (ptrCredit != NULL) {                // подсказка для людей
             printf("|%-5d", (count + 1));
-            printf("|%-10d|%-16s|%-12d| %-2d.%-2d.%-4d |\n", ptrCredit->code_type, ptrCredit->tel_number, ptrCredit->amount,
-                   ptrCredit->date.day, ptrCredit->date.month , ptrCredit->date.year);
-            printf("-----------------------------------------------------------------\n");
+            printf("|%-16d|%-16d|%-11d| %-2d.%-2d.%-4d |\n", ptrCredit->code_type, ptrCredit->tel_number,
+                   ptrCredit->amount, ptrCredit->date.day, ptrCredit->date.month , ptrCredit->date.year);
+            printf("------------------------------------------------------------------\n");
             ptrCredit = ptrCredit->next;
             count++;
         }
@@ -176,12 +206,14 @@ int viewCredit(Credit *ptrCredit){
 
 void headCredit(){
     {
-        printf("-----------------------------------------------------------------\n");
-        printf("|  №  | Номер  кредита |  Телефонный номер  | Дата выдачи |\n");
-        printf("-----------------------------------------------------------------\n");
+        printf("------------------------------------------------------------------\n");
+        printf("|  №  | Номер  кредита |  Телеф. номер  |   Сумма   |Дата выдачи |\n");
+        printf("------------------------------------------------------------------\n");
+        fflush(stdin);
     }
 }
 
+///////////////////////// ПРОВЕРКА УКАЗАТЕЛЕЙ НА ПУСТОТУ ///////////////////////////////////////////////////////////////
 int CheckingPointers(CreditType *ptrCreditType, Client* ptrClient){
     ptrCreditType = firstCreditType(ptrCreditType);
     ptrClient= firstClient(ptrClient);
@@ -189,4 +221,9 @@ int CheckingPointers(CreditType *ptrCreditType, Client* ptrClient){
             return 1;
         }
         return 0;
+}
+
+
+Credit* editCredit(Credit *ptrCredit){
+
 }
