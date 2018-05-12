@@ -159,43 +159,41 @@ int viewCreditType(CreditType *ptrCreditType){
 
 ///////////////////////// Редактирование записи ////////////////////////////////////////////////////////////////////////
 CreditType* editCreditType(CreditType *ptrCreditType){
-    CreditType *ptrEditCreditType = new CreditType;
-    int count = viewCreditType(ptrCreditType);
-    printf("Выберите запись для ретактирования или -1 для выхода? ");
-    fflush(stdin);
-    int choice = askForChoice(count);
+    ptrCreditType = firstCreditType(ptrCreditType); // указатель возвращаем в первоначальное состояние
+    if(ptrCreditType == nullptr){
+        printf("Нет элементов для редактирования\n");
+    }
+    else{
+        int count = viewCreditType(ptrCreditType);
+        printf("Выберите запись для ретактирования или -1 для выхода? ");
+        fflush(stdin);
+        int choice = askForChoice(count);
 
-    if (choice != -1) {
-        ptrCreditType = firstCreditType(ptrCreditType); // указатель возвращаем в первоначальное состояние
-        for(int i = 0 ; i < choice-1 ; i++){
-            ptrCreditType = ptrCreditType->next;        // катаем цикл до нужного элемента
+        if (choice != -1) {
+            ptrCreditType = firstCreditType(ptrCreditType); // указатель возвращаем в первоначальное состояние
+            for(int i = 0 ; i < choice-1 ; i++){
+                ptrCreditType = ptrCreditType->next;        // катаем цикл до нужного элемента
+            }
+            printf("Введите код кредита: ");
+            fflush(stdin);
+            ptrCreditType->code_type = getNumberFromKeyboard();
+            printf("Введите имя кредита: ");
+            fflush(stdin);
+            scanf("%s", ptrCreditType->credit_name);
+            printf("Введите ставку кредита: ");
+            fflush(stdin);
+            ptrCreditType->rate = getNumberFromKeyboard();
+            printf("Введите срок выдачи(в месяцах): ");
+            fflush(stdin);
+            ptrCreditType->loan_period = getNumberFromKeyboard();
         }
-        printf("Введите код кредита: ");
-        fflush(stdin);
-        ptrEditCreditType->code_type = getNumberFromKeyboard();
-        printf("Введите имя кредита: ");
-        fflush(stdin);
-        scanf("%s", ptrEditCreditType->credit_name);
-        printf("Введите ставку кредита: ");
-        fflush(stdin);
-        ptrEditCreditType->rate = getNumberFromKeyboard();
-        printf("Введите срок выдачи(в месяцах): ");
-        fflush(stdin);
-        ptrEditCreditType->loan_period = getNumberFromKeyboard();
 
-        CreditType * ptrPrevCreditType = ptrCreditType->prev;
-        CreditType * ptrNextCreditType = ptrCreditType->next;
-        if (ptrNextCreditType != NULL)
-            ptrEditCreditType->prev = ptrPrevCreditType;
-        if (ptrPrevCreditType != NULL)
-            ptrEditCreditType->next = ptrNextCreditType;
-        delete(ptrCreditType);
-
-
-        delete ptrCreditType;
-        ptrCreditType = ptrEditCreditType;
     }
     return ptrCreditType;
+}
+
+CreditType* searchCreditType(CreditType *ptrCreditType){
+
 }
 
 

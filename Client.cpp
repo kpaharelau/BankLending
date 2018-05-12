@@ -175,12 +175,57 @@ int viewClient(Client *ptrClient){
 
 void headClient() // заголовок
 {
-    printf("-----------------------------------------------------------------------------------------------------------------------------------------------x--\n");
+    printf("-------------------------------------------------------------------------------------------------------------------------------------------------\n");
     printf("|  №  | Номер телефона |      Фамилия клиента     |   Имя  клиента   |          Адрес             |     Фамилия поручителя   |  Имя  поручителя |\n");
     printf("-------------------------------------------------------------------------------------------------------------------------------------------------\n");
     fflush(stdin);
 }
 
 Client* editClient(Client *ptrClient){
+    ptrClient = firstClient(ptrClient); // указатель возвращаем в первоначальное состояние
+    if(ptrClient == nullptr){
+       printf("Нет элементов для редактирования\n");
+    }
+    else {
+        int count = viewClient(ptrClient);
+        printf("Выберите запись для ретактирования или -1 для выхода? ");
+        fflush(stdin);
+        int choice = askForChoice(count);
+
+        if (choice != -1) {
+            ptrClient = firstClient(ptrClient); // указатель возвращаем в первоначальное состояние
+            for (int i = 0; i < choice - 1; i++) {
+                ptrClient = ptrClient->next;        // катаем цикл до нужного элемента
+            }
+            printf("Введите телефонный номер: ");
+            fflush(stdin);
+            while (true) {
+                ptrClient->tel_number = getNumberFromKeyboard();
+                if ((ptrClient->tel_number >= 375000000000) && (ptrClient->tel_number <= 375999999999)) {
+                    break;
+                }
+                printf("Проверьте номер!\n");
+            }
+            printf("Введите фамилию клиента: ");
+            fflush(stdin);
+            scanf("%s", ptrClient->name_user.surname);
+            printf("Введите имя клиента: ");
+            fflush(stdin);
+            scanf("%s", ptrClient->name_user.name);
+            printf("Введите адресс клиента(без пробелов):  ");
+            fflush(stdin);
+            scanf("%s", ptrClient->address);
+            printf("Введите фамилию поручителя: ");
+            fflush(stdin);
+            scanf("%s", ptrClient->guarantor.surname);
+            printf("Введите имя поручителя: ");
+            fflush(stdin);
+            scanf("%s", ptrClient->guarantor.name);
+        }
+    }
+    return ptrClient;
+}
+
+Client* searchClient(Client *ptrClient){
 
 }

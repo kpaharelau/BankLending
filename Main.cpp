@@ -16,8 +16,15 @@ int main() {
         int i;
         i = getNumberFromKeyboard();
         switch (i) {
-            case 1:
-                menuAdmin(bankData);
+            case 1: {
+                if (loginadmin() == 0) {
+                    menuAdmin(bankData);
+                }
+                else {
+                    printf("Неверный логин или пароль!\n");
+                    getchar;
+                }
+            }
                 break;
             case 2:
                 menuUser();

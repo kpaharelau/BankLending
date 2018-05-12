@@ -225,5 +225,59 @@ int CheckingPointers(CreditType *ptrCreditType, Client* ptrClient){
 
 
 Credit* editCredit(Credit *ptrCredit){
+    ptrCredit = firstCredit(ptrCredit); // указатель возвращаем в первоначальное состояние
+    if(ptrCredit == nullptr){
+        printf("Нет элементов для редактирования\n");
+    }
+    else{
+        int count = viewCredit(ptrCredit);
+        printf("Выберите запись для ретактирования или -1 для выхода? ");
+        fflush(stdin);
+        int choice = askForChoice(count);
+
+        if (choice != -1) {
+            ptrCredit = firstCredit(ptrCredit); // указатель возвращаем в первоначальное состояние
+            for(int i = 0 ; i < choice-1 ; i++){
+                ptrCredit = ptrCredit->next;        // катаем цикл до нужного элемента
+            }
+            printf("Введите сумму кредита: ");
+            fflush(stdin);
+            ptrCredit->amount = getNumberFromKeyboard();
+            printf("Введите дату выдачи:\n");
+            printf("день: ");
+            fflush(stdin);
+            while(true){
+                ptrCredit->date.day = getNumberFromKeyboard();
+                if(ptrCredit->date.day >= 1 && ptrCredit->date.day <= 31){
+                    break;
+                }
+                else
+                    printf("Проверьте дату!\n");
+            }
+            printf("месяц: ");
+            fflush(stdin);
+            while(true){
+                ptrCredit->date.month = getNumberFromKeyboard();
+                if((ptrCredit->date.month >= 1) && (ptrCredit->date.month <= 12)){
+                    break;
+                }
+                printf("Проверьте дату!\n");
+            }
+            printf("год: ");
+            fflush(stdin);
+            while(true){
+                ptrCredit->date.year = getNumberFromKeyboard();
+                if((ptrCredit->date.year <= 2018) && (ptrCredit->date.year >= 2000 )){
+                    break;
+                }
+                printf("Проверьте дату!\n");
+            }
+        }
+
+    }
+    return ptrCredit;
+}
+
+Credit* searchCredit(Credit *ptrCredit){
 
 }

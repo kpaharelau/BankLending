@@ -61,6 +61,8 @@ struct BankData {
     Credit *credit;
 };
 
+int loginadmin();
+
 int getNumberFromKeyboard();
 
 void menuAdmin(BankData *);
@@ -77,13 +79,7 @@ void viewAll(CreditType *ptrCreditType, Client* ptrClient, Credit *ptrCredit);
 
 int askForChoice(int count);
 
-void head();
-
 void menuUser();
-
-void getTime(tm &newtime);
-
-long getFileSize(FILE *input);
 
 void clearConsole();
 
@@ -91,8 +87,22 @@ int isFileExists(const char *name);
 
 void edit(BankData *);
 
-// РАЗОБРАТЬСЯ С ФСЕЕК и функцией long getFileSize(FILE* input);
-// ДОБАВИТЬ ПРОВЕРКИ НА ПУСТОТУ СТЕКА И НА ВВОД ЧИСЕЛ С ТЕКТСТОМ
+void searchAndFiltering(BankData* ptrBankData);
+
+void search(BankData* ptrBankData);
+
+void filtering(BankData* ptrBankData);
+
+
+// РАЗОБРАТЬСЯ С ФСЕЕК
 // разобраться с удалением
-// выяснить причину использования не прямых указателей, а передачей его сожержимого в другой и работой с другим
 // три кредитополучателя , который взяли кредит на самый большой срок.
+//сделать проверку видов кредитов и клиентов, чтобы похожего не было
+
+
+
+
+
+//удаление всего
+// сортировка , фильтрация , поиск
+//пароль админа и юзера( функции , которые отвечают за запись в отдельный файл , ввод )с
