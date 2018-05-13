@@ -3,6 +3,12 @@
 #include "Credit.h"
 #include "CreditType.h"
 
+int openuser();
+
+int adduser();
+
+int deleteuser();
+
 void menuAdmin(BankData* ptrBankData) {
     int test;
     while (true) {
@@ -314,4 +320,16 @@ void userManagement(BankData* ptrBankData){
             default: printf("Ошибка!\n");
         }
     }
+}
+
+int deleteuser() {
+    return 0;
+}
+
+int adduser() {
+    return 0;
+}
+
+int openuser() {
+    return 0;
 }

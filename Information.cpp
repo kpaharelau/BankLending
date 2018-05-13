@@ -57,7 +57,7 @@ Information* lastInformation(Information* ptrInformation){
 }
 
 
-int loginadmin(Information *information) {
+int loginAdmin(Information *information) {
     int i = 0;
     char password[255];
     char login[255];
@@ -82,7 +82,7 @@ int loginadmin(Information *information) {
         return 1;
     }
     strcpy(password, crypt(password));
-    //err = fopen_s(&fp, "loginadmin.txt", "r");
+    //err = fopen_s(&fp, "loginAdmin.txt", "r");
     ptrInformation = firstInformation(ptrInformation);
     while (true) {
 

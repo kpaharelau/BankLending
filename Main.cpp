@@ -19,7 +19,7 @@ int main() {
         i = getNumberFromKeyboard();
         switch (i) {
             case 1: {
-                if (loginadmin(bankData->information) == 0) {
+                if (loginAdmin(bankData->information) == 0) {
                     menuAdmin(bankData);
                 }
                 else {
