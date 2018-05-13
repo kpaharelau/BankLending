@@ -18,7 +18,7 @@ Client *readClient() {
             char address[28];           // адрес
             char guarantor_name[18];    // имя поручитель
             char guarantor_surname[26]; // фамилия поручителя
-            int count = fscanf(ptrClientFile, "%d %s %s %s %s %s ",
+            int count = fscanf(ptrClientFile, "%li %s %s %s %s %s ",
                                &tel_number,
                                user_surname,
                                user_name,
@@ -165,9 +165,9 @@ int viewClient(Client *ptrClient){
     ptrClient = firstClient(ptrClient);
     while (ptrClient != NULL) {                // подсказка для людей
         printf("|%-5d", (count + 1));
-        printf("|%-16lg|%-26s|%-18s|%-28s|%-26s|%-18s| \n", ptrClient->tel_number, ptrClient->name_user.surname,
+        printf("|%-16li|%-26s|%-18s|%-28s|%-26s|%-18s| \n", ptrClient->tel_number, ptrClient->name_user.surname,
                ptrClient->name_user.name, ptrClient->address, ptrClient->guarantor.surname, ptrClient->guarantor.name);
-        printf("--------------------------------------------------------------------------------------------------------------------------------------------------\n");        ptrClient = ptrClient->next;
+        printf("-------------------------------------------------------------------------------------------------------------------------------------------------\n");        ptrClient = ptrClient->next;
         count++;
     }
     return count;
