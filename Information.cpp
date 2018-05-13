@@ -57,44 +57,37 @@ Information* lastInformation(Information* ptrInformation){
 }
 
 
+
+char * readUserPasswordFromFile(const char* user){
+    return "jhfjhdgfhgdhfg";
+}
+
+char * readAdminPasswordFromFile(){
+    return readUserPasswordFromFile("user");
+}
+
+int writeAdminPasswordToFile(char* password){
+    return 1;
+}
+
+int writeUserPasswordToFile(const char* user){
+    return 1;
+}
+
 int loginAdmin(Information *information) {
-//    int i = 0;
-//    char password[255];
-//    char login[255];
-//    printf("Введите логин:\n");
-//    gets(login);
-//    while (1) {
-//        password[i] = getchar();
-//        if (password[i] == '\r') break;
-//        if (password[i] == '\b') {
-//            printf("%s", "\b \b");
-//            --i;
-//        }
-//        else {
-//            printf("%c", '*');
-//            ++i;
-//        }
-//    }
-//    password[i] = '\0';
-//    printf("\n");
-//    if (i - 1 < 1)
-//    {
-//        return 1;
-//    }
-//    strcpy(password, crypt(password, reinterpret_cast<const char *>('q11')));
-//    //err = fopen_s(&fp, "loginAdmin.txt", "r");
-//    ptrInformation = firstInformation(ptrInformation);
-//    while (true) {
-//
-//        if (strcmp(login, temp.login) == 0 && strcmp(pass, temp.pass) == 0)
-//        {
-//            fclose(fp);
-//            return 0;
-//        }
-//    }
-//    fclose(fp);
-//    return 1;
-//}
-    return 0;
+
+    //вычитывает пароль
+    char* password = readAdminPasswordFromFile();
+    if (strlen(password) == 0){
+        password = getpass("Пароль администратора не задан. Введите его:");
+        password = createPassword(password);
+        //записываем пароль
+        return writeAdminPasswordToFile(password);
+    }
+
+    int res = checkPassword(getpass("Введите пароль:"), password);
+
+
+    return res;
 }
 

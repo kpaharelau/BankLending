@@ -3,10 +3,14 @@
 #include <cstring>
 #include <iostream>
 #include <sys/stat.h>
+
+
 #define _XOPEN_SOURCE
 #include <unistd.h>
 
 char *crypt(const char *key, const char *salt);
+
+
 #define true 1
 
 
@@ -109,6 +113,10 @@ void search(BankData* ptrBankData);
 void filtering(BankData* ptrBankData);
 
 void userManagement(BankData* ptrBankData);
+
+char *createPassword(char *input);
+
+int checkPassword(char *input, char *pass);
 
 
 // РАЗОБРАТЬСЯ С ФСЕЕК
