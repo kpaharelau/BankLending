@@ -6,7 +6,7 @@ set(CMAKE_CXX_STANDARD 11)
 include_directories(.)
 
 add_executable(BankLending
-        Header.cpp
-        Header.h
+        Utils.cpp
+        Utils.h
         Main.cpp
-        Menu.cpp CreditType.cpp CreditType.h Client.cpp Client.h Credit.cpp Credit.h Information.h Information.cpp)
+        Menu.cpp CreditType.cpp CreditType.h Client.cpp Client.h Credit.cpp Credit.h UserInformation.h UserInformation.cpp)

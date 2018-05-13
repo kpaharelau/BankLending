@@ -4,15 +4,9 @@
 #include <iostream>
 #include <sys/stat.h>
 
-
-#define _XOPEN_SOURCE
 #include <unistd.h>
 
-char *crypt(const char *key, const char *salt);
-
-
 #define true 1
-
 
 #pragma once
 
@@ -63,18 +57,18 @@ struct Credit {
     Credit *prev= NULL;
 };
 
-struct Information {
+struct UserInformation {
     char login[255];
     char password[255];
-    Information *next= NULL;
-    Information *prev= NULL;
+    UserInformation *next= NULL;
+    UserInformation *prev= NULL;
 };
 
 struct BankData {
     CreditType *creditType= NULL;
     Client *client= NULL;
     Credit *credit= NULL;
-    Information *information= NULL;
+    UserInformation *information= NULL;
 };
 
 

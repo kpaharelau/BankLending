@@ -1,12 +1,12 @@
-#include "Header.h"
+#include "Utils.h"
 #include "CreditType.h"
 #include "Client.h"
 #include "Credit.h"
-#include "Information.h"
+#include "UserInformation.h"
 
 int main() {
     BankData* bankData = new BankData;
-    bankData->information = readInformation();
+    bankData->information = readUserInformation();
     bankData->creditType = readCreditTypes();
     bankData->client = readClient();
     bankData->credit = readCredit();
@@ -19,7 +19,7 @@ int main() {
         i = getNumberFromKeyboard();
         switch (i) {
             case 1: {
-                if (loginAdmin(bankData->information) == 0) {
+                if (loginAdmin(bankData->information) == 1) {
                     menuAdmin(bankData);
                 }
                 else {
@@ -34,7 +34,7 @@ int main() {
                 recordCreditTypes(bankData->creditType);
                 recordCredit(bankData->credit);
                 recordClient(bankData->client);
-                recordInformation(bankData->information);
+                recordUserInformation(bankData->information);
                 exit(0);
             default:
                 printf("Вветите числа от 0 до 2\n");
