@@ -334,7 +334,7 @@ void filtering(BankData* ptrBankData) {
             case 3:
                 break;
             default:
-                printf("Введите числа от 0 до 3:  ");
+                printf("Введите числа от 0 до 3: \n");
         }
     }
 }
@@ -342,24 +342,33 @@ void filtering(BankData* ptrBankData) {
 
 void filteringCreditType(CreditType* ptrCreditType){
     while (true) {
-        /*int code_type;          // код кредита
-        char credit_name[20];  // имя кредита
-        int rate;               // ставка
-        int loan_period;*/
         printf("Администратор ======= Выберите действие =======\n");
         printf("Фильтрация по: \n");
-        printf("1. Коду кредита\n");
-        printf("2. Имени кредита");
-        printf("3. Ставке");
-        printf("4. Периоду кредитования\n");
+        printf("1. Ставке\n");
+        printf("2. Периоду кредитования\n");
         printf("0. Возврат.\n");
         int i;
         i = getNumberFromKeyboard();
         if (i == 0) break;
         clearConsole();
-        printf("Введите параметр поиска:\n");
+
         switch (i) {
-            case 1:
+            case 1:{
+                printf("Введите ставку:\n");
+                int rate = getNumberFromKeyboard();
+                headCreditType();
+                int count = 0;
+                ptrCreditType = firstCreditType(ptrCreditType);
+                while (ptrCreditType != NULL) {
+                    if (ptrCreditType->rate == rate) {
+                        printf("|%-5d", (count + 1));
+                        printf("|%-16d|%-20s|%-11d|%-7d|\n", ptrCreditType->code_type, ptrCreditType->credit_name,
+                               ptrCreditType->rate, ptrCreditType->loan_period);
+                        printf("-----------------------------------------------------------------\n");
+                    }
+                    ptrCreditType = ptrCreditType->next;
+                }
+            }
                 break;
             case 2:
                 break;
