@@ -165,7 +165,7 @@ int viewClient(Client *ptrClient){
     ptrClient = firstClient(ptrClient);
     while (ptrClient != NULL) {                // подсказка для людей
         printf("|%-5d", (count + 1));
-        printf("%lid|%-26s|%-18s|%s|%-26s|%-18s| \n", ptrClient->tel_number, ptrClient->name_user.surname,
+        printf("|%-16lg|%-26s|%-18s|%-28s|%-26s|%-18s| \n", ptrClient->tel_number, ptrClient->name_user.surname,
                ptrClient->name_user.name, ptrClient->address, ptrClient->guarantor.surname, ptrClient->guarantor.name);
         printf("--------------------------------------------------------------------------------------------------------------------------------------------------\n");        ptrClient = ptrClient->next;
         count++;
@@ -200,7 +200,7 @@ Client* editClient(Client *ptrClient){
             printf("Введите телефонный номер:\n");
             fflush(stdin);
             while (true) {
-                ptrClient->tel_number = getNumberFromKeyboard();
+                ptrClient->tel_number = getLongFromKeyboard();
                 if ((ptrClient->tel_number >= 375000000000) && (ptrClient->tel_number <= 375999999999)) {
                     break;
                 }
