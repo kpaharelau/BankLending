@@ -26,8 +26,8 @@ struct CreditType {
     char credit_name[20];  // имя кредита
     int rate;               // ставка
     int loan_period;        // срок выдачи
-    CreditType *next;
-    CreditType *prev;
+    CreditType *next = NULL;
+    CreditType *prev = NULL;
 };
 
 struct Nickname {
@@ -40,8 +40,8 @@ struct Client {
     Nickname name_user;   // кредитополучатель
     char address[28];     // адрес
     Nickname guarantor;   // поручитель
-    Client *next;
-    Client *prev;
+    Client *next = NULL;
+    Client *prev = NULL;
 };
 
 struct Date{
@@ -55,22 +55,22 @@ struct Credit {
     int tel_number;       // телефонный номер
     int amount;           // сумма
     Date date;            // дата выдачи
-    Credit *next;
-    Credit *prev;
+    Credit *next = NULL;
+    Credit *prev= NULL;
 };
 
 struct Information {
     char login[255];
     char password[255];
-    Information *next;
-    Information *prev;
+    Information *next= NULL;
+    Information *prev= NULL;
 };
 
 struct BankData {
-    CreditType *creditType;
-    Client *client;
-    Credit *credit;
-    Information *information;
+    CreditType *creditType= NULL;
+    Client *client= NULL;
+    Credit *credit= NULL;
+    Information *information= NULL;
 };
 
 

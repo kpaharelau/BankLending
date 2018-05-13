@@ -85,16 +85,16 @@ CreditType * inputCreditType(CreditType *ptrCreditType) {
     for (int i = 0; i < num; i++) {
         CreditType *ptrNewCreditType = new CreditType;
         printf("%d. ", (i + 1));
-        printf("Введите код кредита: ");
+        printf("Введите код кредита:\n");
         fflush(stdin);
         ptrNewCreditType->code_type = getNumberFromKeyboard();
-        printf("Введите имя кредита: ");
+        printf("Введите имя кредита:\n");
         fflush(stdin);
         scanf("%s", ptrNewCreditType->credit_name); // сделать проверки
-        printf("Введите ставку кредита: ");
+        printf("Введите ставку кредита:\n");
         fflush(stdin);
         ptrNewCreditType->rate = getNumberFromKeyboard();
-        printf("Введите срок выдачи(в месяцах): ");
+        printf("Введите срок выдачи(в месяцах):\n");
         fflush(stdin);
         ptrNewCreditType->loan_period = getNumberFromKeyboard();
 
@@ -163,7 +163,7 @@ CreditType* editCreditType(CreditType *ptrCreditType){
     }
     else{
         int count = viewCreditType(ptrCreditType);
-        printf("Выберите запись для ретактирования или -1 для выхода? ");
+        printf("Выберите запись для ретактирования или -1 для выхода?\n");
         fflush(stdin);
         int choice = askForChoice(count);
 
@@ -172,16 +172,16 @@ CreditType* editCreditType(CreditType *ptrCreditType){
             for(int i = 0 ; i < choice-1 ; i++){
                 ptrCreditType = ptrCreditType->next;        // катаем цикл до нужного элемента
             }
-            printf("Введите код кредита: ");
+            printf("Введите код кредита:\n");
             fflush(stdin);
             ptrCreditType->code_type = getNumberFromKeyboard();
-            printf("Введите имя кредита: ");
+            printf("Введите имя кредита:\n");
             fflush(stdin);
             scanf("%s", ptrCreditType->credit_name);
-            printf("Введите ставку кредита: ");
+            printf("Введите ставку кредита:\n");
             fflush(stdin);
             ptrCreditType->rate = getNumberFromKeyboard();
-            printf("Введите срок выдачи(в месяцах): ");
+            printf("Введите срок выдачи(в месяцах):\n");
             fflush(stdin);
             ptrCreditType->loan_period = getNumberFromKeyboard();
         }
