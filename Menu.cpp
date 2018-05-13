@@ -33,7 +33,7 @@ void menuAdmin(BankData* ptrBankData) {
                 break;
             case 5: searchAndFiltering(ptrBankData);
                 break;
-            case 6:
+            case 6: userManagement(ptrBankData);
                 break;
             default:
                 printf("Вветите числа от 0 до 6:\n");
@@ -261,6 +261,57 @@ void search(BankData* ptrBankData){
                 break;
             default:
                 printf("Введите числа от 0 до 2:  ");
+        }
+    }
+}
+
+void userManagement(BankData* ptrBankData){
+    while (true) {
+        printf("Администратор ======= Выберите действие =======\n");
+        printf("1.Показать всех пользователей\n");
+        printf("2.Удалить пользователя\n");
+        printf("3.Добавить пользователя\n");
+        printf("0.Выход\n");
+        int i;
+        i = getNumberFromKeyboard();
+        if (i == 0) break;
+        clearConsole();
+        switch (i) {
+            case 1:
+                clearConsole();
+                if (openuser() == 0)
+                {
+                    printf("Чтение успешно!\n");
+                }
+                else
+                {
+                    printf("Файл пуст!\n");
+                }
+                break;
+            case 2:
+                clearConsole();
+                openuser();
+                if (deleteuser() == 0)
+                {
+                    printf("Удаление успешно!\n");
+                }
+                else
+                {
+                    printf("Ошибка!\n");
+                }
+                break;
+            case 3:
+                clearConsole();
+                if (adduser() == 0)
+                {
+                    printf("Добавление успешно!\n");
+                }
+                else
+                {
+                    printf("Ошибка!\n");
+                }
+                break;
+            default: printf("Ошибка!\n");
         }
     }
 }

@@ -1,8 +1,12 @@
 #include <cstdio>
 #include <cstdlib>
+#include <cstring>
 #include <iostream>
-#include <ctime>
 #include <sys/stat.h>
+#define _XOPEN_SOURCE
+#include <unistd.h>
+
+char *crypt(const char *key, const char *salt);
 #define true 1
 
 
@@ -55,13 +59,22 @@ struct Credit {
     Credit *prev;
 };
 
+struct Information {
+    char login[255];
+    char password[255];
+    Information *next;
+    Information *prev;
+};
+
 struct BankData {
     CreditType *creditType;
     Client *client;
     Credit *credit;
+    Information *information;
 };
 
-int loginadmin();
+
+
 
 int getNumberFromKeyboard();
 
@@ -93,16 +106,18 @@ void search(BankData* ptrBankData);
 
 void filtering(BankData* ptrBankData);
 
+void userManagement(BankData* ptrBankData);
+
 
 // РАЗОБРАТЬСЯ С ФСЕЕК
 // разобраться с удалением
 // три кредитополучателя , который взяли кредит на самый большой срок.
 //сделать проверку видов кредитов и клиентов, чтобы похожего не было
-
+// что за функция проверки файлна на существование
 
 
 
 
 //удаление всего
-// сортировка , фильтрация , поиск
+//фильтрация , поиск
 //пароль админа и юзера( функции , которые отвечают за запись в отдельный файл , ввод )с

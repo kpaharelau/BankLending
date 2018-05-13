@@ -9,4 +9,4 @@ add_executable(BankLending
         Header.cpp
         Header.h
         Main.cpp
-        Menu.cpp CreditType.cpp CreditType.h Client.cpp Client.h Credit.cpp Credit.h)
+        Menu.cpp CreditType.cpp CreditType.h Client.cpp Client.h Credit.cpp Credit.h Information.h Information.cpp)
