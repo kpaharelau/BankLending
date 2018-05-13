@@ -113,6 +113,7 @@ char *createPassword(char *input);
 int checkPassword(char *input, char *pass);
 
 
+
 // РАЗОБРАТЬСЯ С ФСЕЕК
 // разобраться с удалением
 // три кредитополучателя , который взяли кредит на самый большой срок.
