@@ -3,8 +3,8 @@
 
 Information* readInformation(){
     Information *ptrInformation = nullptr;
-    if(isFileExists("Information.txt")) {
-        FILE *ptrInformationFile = fopen("Information.txt", "r");
+    if(isFileExists("../Information.txt")) {
+        FILE *ptrInformationFile = fopen("../Information.txt", "r");
 
         Information *ptrPrevInformation = nullptr;
         while (true) {
@@ -31,7 +31,7 @@ Information* readInformation(){
 }
 
 void recordInformation(Information *ptrInformation) {
-    FILE *ptrInformationFiles = fopen("Information.txt", "w+");
+    FILE *ptrInformationFiles = fopen("../Information.txt", "w+");
     ptrInformation = firstInformation(ptrInformation);
     while (ptrInformation != NULL) {
         fprintf(ptrInformationFiles, "%s %s\n", ptrInformation->login, ptrInformation->password);

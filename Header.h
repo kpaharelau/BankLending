@@ -78,6 +78,8 @@ struct BankData {
 
 int getNumberFromKeyboard();
 
+long getLongFromKeyboard();
+
 void menuAdmin(BankData *);
 
 void add(BankData *);
