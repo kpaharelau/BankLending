@@ -44,21 +44,21 @@ int askForChoice(int count){
 ///////////////////////// ВЫВОД ВСЕГО //////////////////////////////////////////////////////////////////////////////////
 void viewAll(CreditType *ptrCreditType, Client* ptrClient, Credit *ptrCredit){                                           // можно сделать проверку
     if(ptrCreditType == nullptr){
-        printf("Список кредитов пуст!");
+        printf("Список видов кредитов пуст!\n");
     }else{
         printf("\nВиды кредитов.\n");
         fflush(stdin);
         viewCreditType(ptrCreditType);
     }
     if(ptrClient == nullptr){
-        printf("Список клиентов пуст!");
+        printf("Список клиентов пуст!\n");
     }else{
         printf("\nКлиенты.\n");
         fflush(stdin);
         viewClient(ptrClient);
     }
     if(ptrCredit == nullptr){
-        printf("Список кредитов пуст!");
+        printf("Список кредитов пуст!\n");
     }else{
         printf("\nВыданные кредиты.\n");
         fflush(stdin);

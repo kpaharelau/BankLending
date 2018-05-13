@@ -86,13 +86,13 @@ Client *inputClient(Client *ptrClient) {
         ptrClient = lastClient(ptrClient);
 
     int num;
-    printf("Сколько вы хотите ввести клиентов: ");
+    printf("Сколько вы хотите ввести клиентов:\n");
     scanf("%d", &num);
     fflush(stdin);
     for (int i = 0; i < num; i++) {
         Client *ptrNewClient = new Client;
         printf("%d. ", (i + 1));
-        printf("Введите телефонный номер: ");
+        printf("Введите телефонный номер:\n");
         fflush(stdin);
         while(true){
             ptrNewClient->tel_number = getNumberFromKeyboard();
@@ -101,19 +101,19 @@ Client *inputClient(Client *ptrClient) {
             }
             printf("Проверьте номер!\n");
         }
-        printf("Введите фамилию клиента: ");
+        printf("Введите фамилию клиента:\n");
         fflush(stdin);
         scanf("%s", ptrNewClient->name_user.surname);
         printf("Введите имя клиента: ");
         fflush(stdin);
         scanf("%s", ptrNewClient->name_user.name);
-        printf("Введите адресс клиента(без пробелов):  ");
+        printf("Введите адресс клиента(без пробелов):\n");
         fflush(stdin);
         scanf("%s", ptrNewClient->address);
-        printf("Введите фамилию поручителя: ");
+        printf("Введите фамилию поручителя:\n");
         fflush(stdin);
         scanf("%s", ptrNewClient->guarantor.surname);
-        printf("Введите имя поручителя: ");
+        printf("Введите имя поручителя:\n");
         fflush(stdin);
         scanf("%s", ptrNewClient->guarantor.name);
 
@@ -188,7 +188,7 @@ Client* editClient(Client *ptrClient){
     }
     else {
         int count = viewClient(ptrClient);
-        printf("Выберите запись для ретактирования или -1 для выхода? ");
+        printf("Выберите запись для ретактирования или -1 для выхода?\n");
         fflush(stdin);
         int choice = askForChoice(count);
 
@@ -197,7 +197,7 @@ Client* editClient(Client *ptrClient){
             for (int i = 0; i < choice - 1; i++) {
                 ptrClient = ptrClient->next;        // катаем цикл до нужного элемента
             }
-            printf("Введите телефонный номер: ");
+            printf("Введите телефонный номер:\n");
             fflush(stdin);
             while (true) {
                 ptrClient->tel_number = getNumberFromKeyboard();
@@ -206,19 +206,19 @@ Client* editClient(Client *ptrClient){
                 }
                 printf("Проверьте номер!\n");
             }
-            printf("Введите фамилию клиента: ");
+            printf("Введите фамилию клиента:\n");
             fflush(stdin);
             scanf("%s", ptrClient->name_user.surname);
-            printf("Введите имя клиента: ");
+            printf("Введите имя клиента:\n");
             fflush(stdin);
             scanf("%s", ptrClient->name_user.name);
-            printf("Введите адресс клиента(без пробелов):  ");
+            printf("Введите адресс клиента(без пробелов):\n");
             fflush(stdin);
             scanf("%s", ptrClient->address);
-            printf("Введите фамилию поручителя: ");
+            printf("Введите фамилию поручителя:\n");
             fflush(stdin);
             scanf("%s", ptrClient->guarantor.surname);
-            printf("Введите имя поручителя: ");
+            printf("Введите имя поручителя:\n");
             fflush(stdin);
             scanf("%s", ptrClient->guarantor.name);
         }
