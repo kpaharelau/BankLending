@@ -81,44 +81,55 @@ void viewAll(CreditType *ptrCreditType, Client *ptrClient,
 
 }
 
+char alf[] = "abcedfghijklmnopqrstuvwxyz0123456789#!@$%^&*-+=";//словарь
+int k = 3;
+
+char *encrypt(char *input) {
+
+    for (int n = 0; n < strlen(input); n++) {
+        for (int i = 0; i < 47; i++) {
+            if (input[n] == alf[i]) {
+                if (i >= 47)
+                    input[n] = alf[i - 47];
+                else
+                    input[n] = alf[i + k];//сдвигаем вправо на показания шага ключа
+                break;//принудительно выходим из цикла
+            }
+        }
+    }
+    return input;
+}
+
+char *decrypt(char *input) {
+    for (int n = 0; n < 10; n++) {
+        for (int i = 0; i < 47; i++) {
+            if (input[n] == alf[i]) {
+                if (i >= 47)
+                    input[n] = alf[i - 47];
+                else
+                    input[n] = alf[i - k];//сдвигаем влево на показания шага ключа
+                break;//принудительно выходим из цикла
+            }
+        }
+    }
+    return input;
+}
+
 /**
  * see https://www.gnu.org/software/libc/manual/html_node/crypt.html
  * @param input - то, что ввел пользователь
  * @return зашифрованный пароль
  */
 char *createPassword(char *input) {
-    unsigned long seed[2];
-    char salt[] = "$1$........";
-    const char *const seedchars =
-            "./0123456789ABCDEFGHIJKLMNOPQRST"
-            "UVWXYZabcdefghijklmnopqrstuvwxyz";
-    char *password;
-    int i;
-
-    /* Generate a (not very) random seed.
-       You should do it better than this... */
-    seed[0] = time(NULL);
-    seed[1] = getpid() ^ (seed[0] >> 14 & 0x30000);
-
-    /* Turn it into printable characters from ‘seedchars’. */
-    for (i = 0; i < 8; i++)
-        salt[3 + i] = seedchars[(seed[i / 5] >> (i % 5) * 6) & 0x3f];
-
-    /* Read in the user’s createPassword and encrypt it. */
-    password = crypt(input, salt);
+    char* password = encrypt(input);
     return password;
 }
 
 int checkPassword(char *input, char *pass) {
-    char *result;
     int ok;
-
-    /* Read in the user’s password and encrypt it,
-       passing the expected createPassword in as the salt. */
-    result = crypt(input, pass);
-
+    decrypt(pass);
     /* Test the result. */
-    ok = strcmp(result, pass) == 0;
+    ok = strcmp(input, pass) == 0;
     return ok;
 
 }
