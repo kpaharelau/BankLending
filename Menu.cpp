@@ -30,7 +30,6 @@ void menuAdmin(BankData* ptrBankData) {
                 break;
             case 4:
                 viewAll(ptrBankData->creditType, ptrBankData->client, ptrBankData->credit);
-                getchar();
                 break;
             case 5: searchAndFiltering(ptrBankData);
                 break;
@@ -407,7 +406,7 @@ void userManagement(BankData* ptrBankData){
 //                deleteUsers();
                 break;
             case 3: clearConsole();
-//                addUsers();
+                addUser();
                 break;
             default: printf("Введите числа от 0 до 3: ");
         }

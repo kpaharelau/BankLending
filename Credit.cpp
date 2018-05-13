@@ -231,7 +231,7 @@ Credit* editCredit(Credit *ptrCredit){
     }
     else{
         int count = viewCredit(ptrCredit);
-        printf("Выберите запись для ретактирования или -1 для выхода? ");
+        printf("Выберите запись для редактирования или -1 для выхода?\n");
         fflush(stdin);
         int choice = askForChoice(count);
 
@@ -240,7 +240,7 @@ Credit* editCredit(Credit *ptrCredit){
             for(int i = 0 ; i < choice-1 ; i++){
                 ptrCredit = ptrCredit->next;        // катаем цикл до нужного элемента
             }
-            printf("Введите сумму кредита: ");
+            printf("Введите сумму кредита:\n");
             fflush(stdin);
             ptrCredit->amount = getNumberFromKeyboard();
             printf("Введите дату выдачи:\n");

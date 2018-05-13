@@ -122,3 +122,29 @@ int loginAdmin(UserInformation *information) {
     return res;
 }
 
+void addUser(){
+    printf("Логин\n");
+
+
+
+    while (true) {
+        printf("Логин\n");
+
+        i = getNumberFromKeyboard();
+        if (i == 0) break;
+        clearConsole();
+        switch (i) {
+            case 1: clearConsole();
+//                viewAllUsers();
+                break;
+            case 2: clearConsole();
+//                deleteUsers();
+                break;
+            case 3: clearConsole();
+                addUser();
+                break;
+            default: printf("Введите числа от 0 до 3: ");
+        }
+    }
+}
+
