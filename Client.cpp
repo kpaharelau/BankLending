@@ -53,7 +53,7 @@ void recordClient(Client *ptrClient) {
     ptrClient = firstClient(ptrClient);
     while (ptrClient != NULL) {
         fprintf(ptrClientFiles, "%li %s %s %s %s %s\n",
-                ptrClient->tel_number,
+                &ptrClient->tel_number,
                 ptrClient->name_user.surname,
                 ptrClient->name_user.name,
                 ptrClient->address,
@@ -226,6 +226,3 @@ Client* editClient(Client *ptrClient){
     return ptrClient;
 }
 
-Client* searchClient(Client *ptrClient){
-
-}

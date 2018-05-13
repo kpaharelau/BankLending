@@ -9,4 +9,3 @@ CreditType* deleteCreditType(CreditType *ptrCreditType);
 int viewCreditType(CreditType *ptrCreditType);
 void headCreditType();
 CreditType* editCreditType(CreditType *ptrCreditType);
-CreditType* searchCreditType(CreditType *ptrCreditType);

@@ -9,4 +9,3 @@ Client* deleteClient(Client *ptrClient);
 int viewClient(Client *ptrClient);
 void headClient();
 Client* editClient(Client *ptrClient);
-Client* searchClient(Client *ptrClient);

@@ -277,7 +277,3 @@ Credit* editCredit(Credit *ptrCredit){
     }
     return ptrCredit;
 }
-
-Credit* searchCredit(Credit *ptrCredit){
-
-}

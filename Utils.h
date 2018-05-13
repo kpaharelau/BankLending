@@ -1,10 +1,13 @@
+#define _XOPEN_SOURCE
+#include <unistd.h>
+
+
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <iostream>
 #include <sys/stat.h>
 
-#include <unistd.h>
 
 #define true 1
 
@@ -58,8 +61,8 @@ struct Credit {
 };
 
 struct UserInformation {
-    char login[255];
-    char password[255];
+    char login[30];
+    char password[30];
     UserInformation *next= NULL;
     UserInformation *prev= NULL;
 };
@@ -111,6 +114,10 @@ void userManagement(BankData* ptrBankData);
 char *createPassword(char *input);
 
 int checkPassword(char *input, char *pass);
+
+void searchCreditType(CreditType* ptrCreditType);
+
+void filteringCreditType(CreditType* ptrCreditTypeж);
 
 
 

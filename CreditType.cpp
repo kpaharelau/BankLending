@@ -190,8 +190,5 @@ CreditType* editCreditType(CreditType *ptrCreditType){
     return ptrCreditType;
 }
 
-CreditType* searchCreditType(CreditType *ptrCreditType){
-
-}
 
 

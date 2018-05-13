@@ -11,4 +11,3 @@ Credit* editCredit(Credit *ptrCredit);
 int viewCredit(Credit *ptrCredit);
 void headCredit();
 int CheckingPointers(CreditType *ptrCreditType, Client* ptrClient);
-Credit* searchCredit(Credit *ptrCredit);

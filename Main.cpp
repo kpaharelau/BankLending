@@ -23,7 +23,7 @@ int main() {
                     menuAdmin(bankData);
                 }
                 else {
-                    printf("Неверный логин или пароль!\n");
+                    printf("Неверный пароль!\n");
                 }
             }
                 break;
