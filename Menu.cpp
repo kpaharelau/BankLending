@@ -164,10 +164,10 @@ int removeAll(BankData *ptrBankData) {
         switch (i) {
             case 1: {
                 CreditType *ptrCreditType = firstCreditType(ptrBankData->creditType);
-                while (ptrCreditType != NULL) {
-                    ptrCreditType->prev = ptrCreditType;
+                while (ptrCreditType != NULL && ptrCreditType->next != NULL) {
+                    CreditType* ptrCreditTypeForRemove = ptrCreditType;
                     ptrCreditType = ptrCreditType->next;
-                    delete ptrCreditType->prev;
+                    delete ptrCreditTypeForRemove;
                 }
                 ptrBankData->creditType = NULL;
             }

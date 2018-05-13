@@ -12,7 +12,7 @@ Client *readClient() {
 
         Client *ptrPrevClient = nullptr;
         while (true) {
-            int tel_number;             // логин
+            long tel_number;             // логин
             char user_name[18];         // имя
             char user_surname[26];      // фамилия   // кредитополучатель
             char address[28];           // адрес
