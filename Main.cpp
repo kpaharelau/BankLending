@@ -34,7 +34,6 @@ int main() {
                 recordCreditTypes(bankData->creditType);
                 recordCredit(bankData->credit);
                 recordClient(bankData->client);
-                recordUserInformation(bankData->information);
                 exit(0);
             default:
                 printf("Вветите числа от 0 до 2\n");

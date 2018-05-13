@@ -78,7 +78,7 @@ char *readAdminPasswordFromFile() {
 
 void writeUserPasswordToFile(const char *login, const char *password) {
     UserInformation *ptrUserInformation = firstUserInformation(readUserInformation());
-    while (ptrUserInformation != NULL && ptrUserInformation->next != NULL) {
+    while (ptrUserInformation != NULL) {
         if (strcmp(ptrUserInformation->login, login) == 0) {
             strcpy(ptrUserInformation->password, password);
             recordUserInformation(ptrUserInformation);
