@@ -6,8 +6,8 @@
 ///////////////////////// ВЫВОД ИЗ ФАЙЛА ///////////////////////////////////////////////////////////////////////////////
 Credit* readCredit(){
     Credit* ptrCredit = nullptr;
-    if( isFileExists("Credit.txt")){
-        FILE* ptrCreditFile = fopen("Credit.txt", "r"); // указатель для работы с файлами
+    if( isFileExists("../Credit.txt")){
+        FILE* ptrCreditFile = fopen("../Credit.txt", "r"); // указатель для работы с файлами
 
         Credit* ptrPrevCredit = nullptr;                // указатель для работы с чем??
         while(true){
@@ -47,7 +47,7 @@ Credit* readCredit(){
 
 ///////////////////////// ВВОД В ФАЙЛ //////////////////////////////////////////////////////////////////////////////////
 void recordCredit(Credit *ptrCredit){
-    FILE *ptrCreditFiles = fopen("Credit.txt", "w+");
+    FILE *ptrCreditFiles = fopen("../Credit.txt", "w+");
     ptrCredit = firstCredit(ptrCredit);
     while (ptrCredit != NULL) {
         fprintf(ptrCreditFiles, "%d %d %d %d %d %d\n", ptrCredit->code_type , ptrCredit->tel_number , ptrCredit->amount, ptrCredit->date.day,  ptrCredit->date.month , ptrCredit->date.year );

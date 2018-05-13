@@ -20,6 +20,16 @@ int getNumberFromKeyboard() {
     return i;
 }
 
+long getLongFromKeyboard() {
+    long res, i;
+    do {
+        res = scanf("%li", &i);
+        while (getchar() != '\n');
+        if (res != 1) printf("Введите число!\n");
+    } while (res != 1);
+    return i;
+}
+
 void clearConsole() {
 //  system("clear");
 }

@@ -7,8 +7,8 @@ Client* firstClient(Client* ptrClient);
 ///////////////////////// ВЫВОД ИЗ ФАЙЛА ////////////////////////////////
 Client *readClient() {
     Client *ptrClient = nullptr;
-    if (isFileExists("Client.txt")) {
-        FILE *ptrClientFile = fopen("Client.txt", "r");
+    if (isFileExists("../Client.txt")) {
+        FILE *ptrClientFile = fopen("../Client.txt", "r");
 
         Client *ptrPrevClient = nullptr;
         while (true) {
@@ -49,7 +49,7 @@ Client *readClient() {
 
 ///////////////////////// ВВОД В ФАЙЛ ////////////////////////////////
 void recordClient(Client *ptrClient) {
-    FILE *ptrClientFiles = fopen("Client.txt", "w+");
+    FILE *ptrClientFiles = fopen("../Client.txt", "w+");
     ptrClient = firstClient(ptrClient);
     while (ptrClient != NULL) {
         fprintf(ptrClientFiles, "%li %s %s %s %s %s\n",
@@ -95,7 +95,7 @@ Client *inputClient(Client *ptrClient) {
         printf("Введите телефонный номер:\n");
         fflush(stdin);
         while(true){
-            ptrNewClient->tel_number = getNumberFromKeyboard();
+            ptrNewClient->tel_number = getLongFromKeyboard();
             if((ptrNewClient->tel_number >= 375000000000) && (ptrNewClient->tel_number <= 375999999999)){
                 break;
             }
@@ -104,7 +104,7 @@ Client *inputClient(Client *ptrClient) {
         printf("Введите фамилию клиента:\n");
         fflush(stdin);
         scanf("%s", ptrNewClient->name_user.surname);
-        printf("Введите имя клиента: ");
+        printf("Введите имя клиента:\n");
         fflush(stdin);
         scanf("%s", ptrNewClient->name_user.name);
         printf("Введите адресс клиента(без пробелов):\n");

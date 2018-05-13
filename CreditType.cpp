@@ -11,8 +11,8 @@ void headCreditType() // заголовок
 ///////////////////////// ВЫВОД ИЗ ФАЙЛА ///////////////////////////////////////////////////////////////////////////////
 CreditType* readCreditTypes(){
     CreditType *ptrCreditType = nullptr;
-    if(isFileExists("CreditType.txt")){
-        FILE *ptrCreditTypeFile = fopen("CreditType.txt", "r");
+    if(isFileExists("../CreditType.txt")){
+        FILE *ptrCreditTypeFile = fopen("../CreditType.txt", "r");
 
         CreditType *ptrPrevCreditType = nullptr;
         while (true) {
@@ -47,7 +47,7 @@ CreditType* readCreditTypes(){
 }
 ///////////////////////// ВВОД В ФАЙЛ //////////////////////////////////////////////////////////////////////////////////
 void recordCreditTypes(CreditType *ptrCreditType) {
-    FILE *ptrCreditTypeFiles = fopen("CreditType.txt", "w+");
+    FILE *ptrCreditTypeFiles = fopen("../CreditType.txt", "w+");
     ptrCreditType = firstCreditType(ptrCreditType);
     while (ptrCreditType != NULL) {
         fprintf(ptrCreditTypeFiles, "%d %s %d %d\n", ptrCreditType->code_type, ptrCreditType->credit_name,
