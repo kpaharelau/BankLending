@@ -322,6 +322,10 @@ void userManagement(BankData* ptrBankData){
     }
 }
 
+void filtering(BankData* ptrBankData){
+
+}
+
 int deleteuser() {
     return 0;
 }

@@ -24,7 +24,6 @@ int main() {
                 }
                 else {
                     printf("Неверный логин или пароль!\n");
-                    getchar;
                 }
             }
                 break;

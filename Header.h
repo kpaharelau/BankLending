@@ -36,7 +36,7 @@ struct Nickname {
 };
 
 struct Client {
-    int tel_number;       // логин
+    long tel_number;       // логин
     Nickname name_user;   // кредитополучатель
     char address[28];     // адрес
     Nickname guarantor;   // поручитель
