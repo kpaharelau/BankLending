@@ -57,45 +57,45 @@ Information* lastInformation(Information* ptrInformation){
 }
 
 
-int loginAdmin(Information *information) {
-//    int i = 0;
-//    char password[255];
-//    char login[255];
-//    printf("Введите логин:\n");
-//    gets(login);
-//    while (1) {
-//        password[i] = getchar();
-//        if (password[i] == '\r') break;
-//        if (password[i] == '\b') {
-//            printf("%s", "\b \b");
-//            --i;
-//        }
-//        else {
-//            printf("%c", '*');
-//            ++i;
-//        }
-//    }
-//    password[i] = '\0';
-//    printf("\n");
-//    if (i - 1 < 1)
-//    {
-//        return 1;
-//    }
-//    strcpy(password, crypt(password, reinterpret_cast<const char *>('q11')));
-//    //err = fopen_s(&fp, "loginAdmin.txt", "r");
-//    ptrInformation = firstInformation(ptrInformation);
-//    while (true) {
-//
-//        if (strcmp(login, temp.login) == 0 && strcmp(pass, temp.pass) == 0)
-//        {
-//            fclose(fp);
-//            return 0;
-//        }
-//    }
-//    fclose(fp);
-//    return 1;
-//}
+int loginadmin(Information *information) {
+    int i = 0;
+    char password[255];
+    char login[255];
+    printf("Введите логин:\n");
+    gets(login);
+    while (1) {
+        password[i] = getchar();
+        if (password[i] == '\r') break;
+        if (password[i] == '\b') {
+            printf("%s", "\b \b");
+            --i;
+        }
+        else {
+            printf("%c", '*');
+            ++i;
+        }
+    }
+    password[i] = '\0';
+    printf("\n");
+    if (i - 1 < 1)
+    {
+        return 1;
+    }
+    strcpy(password, crypt(password));
+    //err = fopen_s(&fp, "loginadmin.txt", "r");
+    ptrInformation = firstInformation(ptrInformation);
+
+    while (true) {
+
+        if (strcmp(login, temp.login) == 0 && strcmp(pass, temp.pass) == 0)
+        {
+            fclose(fp);
+            return 0;
+        }
+    }
+    fclose(fp);
     return 1;
+}
 
 }
 
