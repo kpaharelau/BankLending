@@ -34,7 +34,8 @@ void menuAdmin(BankData* ptrBankData) {
                 break;
             case 5: searchAndFiltering(ptrBankData);
                 break;
-            case 6: userManagement(ptrBankData);
+            case 6:
+                userManagement();
                 break;
             default:
                 printf("Вветите числа от 0 до 6:\n");
@@ -486,7 +487,7 @@ void filtering(CreditType *ptrCreditType, Client* ptrClient, Credit *ptrCredit) 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 
-void userManagement(BankData* ptrBankData){
+void userManagement() {
     while (true) {
         printf("Администратор ======= Выберите действие =======\n");
         printf("1. Показать всех пользователей\n");
@@ -499,13 +500,13 @@ void userManagement(BankData* ptrBankData){
         clearConsole();
         switch (i) {
             case 1: clearConsole();
-                viewAllUsers(ptrBankData->information);
+                viewAllUsers();
                 break;
             case 2: clearConsole();
-                deleteUsers(ptrBankData->information);
+                deleteUsers();
                 break;
             case 3: clearConsole();
-                addUsers(ptrBankData->information);
+                addUsers();
                 break;
             default: printf("Введите числа от 0 до 3: ");
         }

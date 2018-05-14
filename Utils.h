@@ -71,7 +71,6 @@ struct BankData {
     CreditType *creditType= NULL;
     Client *client= NULL;
     Credit *credit= NULL;
-    UserInformation *information= NULL;
 };
 
 
@@ -109,7 +108,7 @@ void search(BankData* ptrBankData);
 
 void filtering(CreditType *ptrCreditType, Client* ptrClient, Credit *ptrCredit);
 
-void userManagement(BankData* ptrBankData);
+void userManagement();
 
 char *createPassword(char *input);
 

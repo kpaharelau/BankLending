@@ -6,7 +6,6 @@
 
 int main() {
     BankData* bankData = new BankData;
-    bankData->information = readUserInformation();
     bankData->creditType = readCreditTypes();
     bankData->client = readClient();
     bankData->credit = readCredit();
@@ -19,7 +18,7 @@ int main() {
         i = getNumberFromKeyboard();
         switch (i) {
             case 1: {
-                if (loginAdmin(bankData->information) == 1) {
+                if (loginAdmin() == 1) {
                     menuAdmin(bankData);
                 }
                 else {

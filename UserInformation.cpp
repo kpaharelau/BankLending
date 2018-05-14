@@ -1,7 +1,7 @@
 #include "Utils.h"
 #include "UserInformation.h"
 
-UserInformation *readUserInformation() {
+UserInformation *read() {
     UserInformation *ptrInformation = nullptr;
     if (isFileExists("../Users.txt")) {
         FILE *ptrInformationFile = fopen("../Users.txt", "r");
@@ -41,7 +41,7 @@ void recordUserInformation(UserInformation *ptrUserInformation) {
 }
 
 UserInformation *findUserInformationByLogin(const char *login) {
-    UserInformation *ptrUserInformation = firstUserInformation(readUserInformation());
+    UserInformation *ptrUserInformation = firstUserInformation(read());
     while (ptrUserInformation != NULL) {
         if (strcmp(ptrUserInformation->login, login) == 0)
             return ptrUserInformation;
@@ -77,7 +77,7 @@ char *readAdminPasswordFromFile() {
 }
 
 void writeUserPasswordToFile(const char *login, const char *password) {
-    UserInformation *ptrUserInformation = firstUserInformation(readUserInformation());
+    UserInformation *ptrUserInformation = firstUserInformation(read());
     while (ptrUserInformation != NULL) {
         if (strcmp(ptrUserInformation->login, login) == 0) {
             strcpy(ptrUserInformation->password, password);
@@ -104,7 +104,7 @@ void writeAdminPasswordToFile(char *password) {
 }
 
 
-int loginAdmin(UserInformation *information) {
+int loginAdmin() {
 
     //вычитывает пароль
     char *password = readAdminPasswordFromFile();
@@ -126,7 +126,8 @@ int loginAdmin(UserInformation *information) {
 //               ФУНКЦИИ РАБОТЫ С ЮЗЕРАМИ // АДМИНИСТРАТОР
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void addUsers(UserInformation *ptrUserInformation){
+void addUsers(){
+    UserInformation *ptrUserInformation = findUserInformationByLogin("admin");
     if (ptrUserInformation != NULL)                                     //Проверяем на пустоту, для возможной записи в конец файла
         ptrUserInformation = lastUserInformation(ptrUserInformation);
 
@@ -155,9 +156,10 @@ void addUsers(UserInformation *ptrUserInformation){
     recordUserInformation(ptrUserInformation);
 }
 
-void deleteUsers(UserInformation *ptrUserInformation){
+void deleteUsers(){
+    UserInformation *ptrUserInformation = findUserInformationByLogin("admin");
     if (ptrUserInformation != nullptr) {
-        int count = viewAllUsers(ptrUserInformation);;
+        int count = viewAllUsers();
         printf("Выберите элемент для удаления или -1 для выхода.\n");
         fflush(stdin);
         int choice = askForChoice(count);
@@ -185,7 +187,10 @@ void deleteUsers(UserInformation *ptrUserInformation){
 }
 
 
-int viewAllUsers(UserInformation *ptrUserInformation){
+int viewAllUsers(){
+
+    UserInformation *ptrUserInformation = findUserInformationByLogin("admin");
+
     int count = 0;
     printf("---------------------------------------------------------------------\n");
     printf("|   № |     Логин пользователя       |             Пароль           |\n");
@@ -203,4 +208,8 @@ int viewAllUsers(UserInformation *ptrUserInformation){
     }
    
     return count;
+}
+
+void editUser(UserInformation *ptrUserInformation ){
+
 }
