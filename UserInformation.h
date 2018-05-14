@@ -2,6 +2,7 @@
 
 UserInformation* read();
 int loginAdmin();
+int loginUser();
 UserInformation *firstUserInformation(UserInformation *ptrUserInformation);
 UserInformation* lastUserInformation(UserInformation *ptrUserInformation);
 void recordUserInformation(UserInformation *ptrUserInformation);

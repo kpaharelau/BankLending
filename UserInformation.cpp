@@ -122,6 +122,20 @@ int loginAdmin() {
     return res;
 }
 
+
+int loginUser() {
+    printf("Введите логин:\n");
+    char login[30];
+    scanf("%s", login);
+    //вычитывает пароль
+    char *password = readUserPasswordFromFile(login);
+    if (password == NULL || strlen(password) == 0) {
+        return -1;
+    }
+    int res = checkPassword(getpass("Введите пароль:"), password);
+    return res;
+}
+
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //               ФУНКЦИИ РАБОТЫ С ЮЗЕРАМИ // АДМИНИСТРАТОР
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

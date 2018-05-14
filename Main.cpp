@@ -26,8 +26,17 @@ int main() {
                 }
             }
                 break;
-            case 2:
-                menuUser(bankData);
+            case 2: {
+                int res = loginUser();
+                if (res == 1) {
+                    menuUser(bankData);
+                } else if (res == 0) {
+                    printf("Неверный пароль!\n");
+                } else if (res == -1) {
+                    printf("Пользователь отсутствует!\n");
+                }
+            }
+
                 break;
             case 0:
                 recordCreditTypes(bankData->creditType);
