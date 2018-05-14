@@ -1,7 +1,5 @@
 #define _XOPEN_SOURCE
 #include <unistd.h>
-
-
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -37,7 +35,7 @@ struct Nickname {
 };
 
 struct Client {
-    long long tel_number;       // логин
+    int tel_number;       // логин
     Nickname name_user;   // кредитополучатель
     char address[28];     // адрес
     Nickname guarantor;   // поручитель
@@ -53,7 +51,7 @@ struct Date{
 
 struct Credit {
     int code_type;        // код типа кредита
-    long long tel_number;       // телефонный номер
+    int tel_number;       // телефонный номер
     int amount;           // сумма
     Date date;            // дата выдачи
     Credit *next = NULL;
@@ -75,10 +73,7 @@ struct BankData {
 
 
 
-
 int getNumberFromKeyboard();
-
-long getLongFromKeyboard();
 
 void menuAdmin(BankData *);
 
@@ -126,17 +121,12 @@ char *decrypt(char *input);
 
 
 
-
+// перестал нормально работать просмотр клиентов
+//), в противном случае появится сообщение о том, что такая запись не найдена. поиск , фильтрация,
+// проверку на логины и пароли
 
 // РАЗОБРАТЬСЯ С ФСЕЕК
-// разобраться с удалением
 // три кредитополучателя , который взяли кредит на самый большой срок.
 //сделать проверку видов кредитов и клиентов, чтобы похожего не было
-// что за функция проверки файлна на существование
 
-
-
-
-//удаление всего
-//фильтрация , поиск
-//пароль админа и юзера( функции , которые отвечают за запись в отдельный файл , ввод )с
+// переделать поиск

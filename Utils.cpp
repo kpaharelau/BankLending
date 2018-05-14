@@ -109,6 +109,7 @@ char *decrypt(char *input) {
  * @param input - то, что ввел пользователь
  * @return зашифрованный пароль
  */
+
 char *createPassword(char *input) {
     char* password = encrypt(input);
     return password;
@@ -120,32 +121,34 @@ int checkPassword(char *input, char *pass) {
     /* Test the result. */
     ok = strcmp(input, pass) == 0;
     return ok;
-
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 //               Выпольнение задачи // ПОЛЬЗОВАТЕЛЬ
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+/*
 
 void task(CreditType* ptrCreditType){
-    int count;
+    int count, tmp;
     ptrCreditType = firstCreditType(ptrCreditType);
     while(ptrCreditType != nullptr){
         ptrCreditType = ptrCreditType->next;
         count++;
     }
-    CreditType * ptrNextCreditType = ptrCreditType->next;
-    CreditType * tmp;
-    for(int i = 0 ; i < count-1; i++){
-            if (ptrNextCreditType < ptrCreditType) {
-                tmp->loan_period = ptrNextCreditType->loan_period;
-                ptrNextCreditType->loan_period = ptrCreditType->loan_period;
-                ptrCreditType->loan_period = tmp->loan_period;
-                // тут надо что-то дописать, чтобы при следующем проходе все было ок
-            }
+    int mas[count];
+    ptrCreditType = firstCreditType(ptrCreditType);
+    while(ptrCreditType != nullptr){
+        mas[count] = ptrCreditType->loan_period;
         ptrCreditType = ptrCreditType->next;
     }
-    for( int i = 0; i < 3 ; i++){
-        printf("%d. %d", (i+1), ptrCreditType->loan_period);
+    for(int i = 1 ; i < count; i++){
+        if (mas[i] < mas[i-1]) {
+            tmp = mas[i];
+            mas[i] = mas[i-1];
+            mas[i-1] = tmp;
+        }
     }
-}
+    for( int i = count; i > (count-3); i--){
+        printf("%d. %d ", (i+1), mas[i]);
+    }
+}*/

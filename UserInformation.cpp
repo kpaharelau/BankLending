@@ -158,7 +158,7 @@ void addUsers(){
         printf("Введите пароль:\n");
         fflush(stdin);
         scanf("%s", ptrNewUserInformation->password);
-        strcpy(ptrNewUserInformation->password, createPassword(ptrNewUserInformation->password)); // тут тоже подправить , но не переписывать
+        strcpy(ptrNewUserInformation->password, createPassword(ptrNewUserInformation->password));
 
         ptrNewUserInformation->prev = ptrUserInformation;
         if (ptrUserInformation != NULL)
@@ -178,6 +178,7 @@ void deleteUsers(){
         fflush(stdin);
         int choice = askForChoice(count);
         if (choice != -1) {
+            ptrUserInformation = ptrUserInformation->next;
             ptrUserInformation = firstUserInformation(ptrUserInformation); // указатель возвращаем в первоначальное состояние
             for(int i = 0 ; i < choice-1 ; i ++){
                 ptrUserInformation = ptrUserInformation->next;        // катаем цикл до нужного элемента
@@ -222,8 +223,4 @@ int viewAllUsers(){
     }
    
     return count;
-}
-
-void editUser(UserInformation *ptrUserInformation ){
-
 }

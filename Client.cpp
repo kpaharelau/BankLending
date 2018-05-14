@@ -165,7 +165,7 @@ int viewClient(Client *ptrClient){
     ptrClient = firstClient(ptrClient);
     while (ptrClient != NULL) {                // подсказка для людей
         printf("|%-5d", (count + 1));
-        printf("|%-16d|%-26s|%-18s|%-28s|%-26s|%-18s| \n", ptrClient->tel_number, ptrClient->name_user.surname,
+        printf("|%-16d|%-26s|%-18s|%-28s|%-26s|%-18s|\n", ptrClient->tel_number, ptrClient->name_user.surname,
                ptrClient->name_user.name, ptrClient->address, ptrClient->guarantor.surname, ptrClient->guarantor.name);
         printf("-------------------------------------------------------------------------------------------------------------------------------------------------\n");        ptrClient = ptrClient->next;
         count++;

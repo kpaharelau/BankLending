@@ -9,5 +9,4 @@ void recordUserInformation(UserInformation *ptrUserInformation);
 
 void addUsers();
 void deleteUsers();
-void editUser(UserInformation *ptrUserInformation);
 int viewAllUsers();

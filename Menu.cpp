@@ -56,7 +56,7 @@ void menuUser(BankData* ptrBankData) {
         switch (i) {
             case 1: viewAll(ptrBankData->creditType, ptrBankData->client, ptrBankData->credit);
                 break;
-            case 2: task(ptrBankData->creditType);
+//            case 2: task(ptrBankData->creditType);
                 break;
             case 3: searchAndFiltering(ptrBankData);
                 break;
