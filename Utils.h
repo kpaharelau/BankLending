@@ -37,7 +37,7 @@ struct Nickname {
 };
 
 struct Client {
-    long tel_number;       // логин
+    long long tel_number;       // логин
     Nickname name_user;   // кредитополучатель
     char address[28];     // адрес
     Nickname guarantor;   // поручитель
@@ -53,7 +53,7 @@ struct Date{
 
 struct Credit {
     int code_type;        // код типа кредита
-    int tel_number;       // телефонный номер
+    long long tel_number;       // телефонный номер
     int amount;           // сумма
     Date date;            // дата выдачи
     Credit *next = NULL;
@@ -85,7 +85,7 @@ void menuAdmin(BankData *);
 
 void add(BankData *);
 
-void remove(BankData *);
+int remove(BankData *);
 
 void removePart(BankData *);
 
@@ -95,7 +95,7 @@ void viewAll(CreditType *ptrCreditType, Client* ptrClient, Credit *ptrCredit);
 
 int askForChoice(int count);
 
-void menuUser();
+void menuUser(BankData* ptrBankData);
 
 void clearConsole();
 
@@ -107,7 +107,7 @@ void searchAndFiltering(BankData* ptrBankData);
 
 void search(BankData* ptrBankData);
 
-void filtering(BankData* ptrBankData);
+void filtering(CreditType *ptrCreditType, Client* ptrClient, Credit *ptrCredit);
 
 void userManagement(BankData* ptrBankData);
 
@@ -117,7 +117,11 @@ int checkPassword(char *input, char *pass);
 
 void searchCreditType(CreditType* ptrCreditType);
 
-void filteringCreditType(CreditType* ptrCreditTypeж);
+void searchClient(Client* ptrClient);
+
+void task(CreditType* ptrCreditType) ;
+
+
 
 
 

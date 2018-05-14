@@ -156,12 +156,11 @@ int viewCreditType(CreditType *ptrCreditType){
 }
 
 ///////////////////////// Редактирование записи ////////////////////////////////////////////////////////////////////////
-CreditType* editCreditType(CreditType *ptrCreditType){
+CreditType* editCreditType(CreditType *ptrCreditType) {
     ptrCreditType = firstCreditType(ptrCreditType); // указатель возвращаем в первоначальное состояние
-    if(ptrCreditType == nullptr){
+    if (ptrCreditType == nullptr) {
         printf("Нет элементов для редактирования\n");
-    }
-    else{
+    } else {
         int count = viewCreditType(ptrCreditType);
         printf("Выберите запись для ретактирования или -1 для выхода?\n");
         fflush(stdin);
@@ -169,7 +168,7 @@ CreditType* editCreditType(CreditType *ptrCreditType){
 
         if (choice != -1) {
             ptrCreditType = firstCreditType(ptrCreditType); // указатель возвращаем в первоначальное состояние
-            for(int i = 0 ; i < choice-1 ; i++){
+            for (int i = 0; i < choice - 1; i++) {
                 ptrCreditType = ptrCreditType->next;        // катаем цикл до нужного элемента
             }
             printf("Введите код кредита:\n");

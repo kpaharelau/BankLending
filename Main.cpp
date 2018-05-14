@@ -28,7 +28,7 @@ int main() {
             }
                 break;
             case 2:
-                menuUser();
+                menuUser(bankData);
                 break;
             case 0:
                 recordCreditTypes(bankData->creditType);

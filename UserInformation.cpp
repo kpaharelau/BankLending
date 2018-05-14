@@ -122,7 +122,88 @@ int loginAdmin(UserInformation *information) {
     return res;
 }
 
-int edituser()
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//               ФУНКЦИИ РАБОТЫ С ЮЗЕРАМИ // АДМИНИСТРАТОР
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+UserInformation* addUsers(UserInformation *ptrUserInformation){
+    if (ptrUserInformation != NULL)                                     //Проверяем на пустоту, для возможной записи в конец файла
+        ptrUserInformation = lastUserInformation(ptrUserInformation);
+
+    int num;
+    printf("Сколько вы хотите ввести пользователей:\n");
+    fflush(stdin);
+    scanf("%d", &num);
+    for (int i = 0; i < num; i++) {
+        UserInformation *ptrNewUserInformation = new UserInformation;
+        printf("%d. ", (i + 1));
+        printf("Введите логин:\n");
+        fflush(stdin);
+        scanf("%s", ptrNewUserInformation->login);
+        printf("Введите пароль:\n");
+        fflush(stdin);
+        scanf("%s", ptrNewUserInformation->password);
+        ptrNewUserInformation->password = createPassword(ptrNewUserInformation->password); // тут тоже подправить , но не переписывать
+
+        ptrNewUserInformation->prev = ptrUserInformation;
+        if (ptrUserInformation != NULL)
+            ptrUserInformation->next = ptrNewUserInformation;
+        ptrUserInformation = ptrNewUserInformation;
+    }
+
+    return ptrUserInformation;
+}
+
+UserInformation* deleteUsers(UserInformation *ptrUserInformation){
+    if (ptrUserInformation != nullptr) {
+        int count = viewAllUsers(ptrUserInformation);;
+        printf("Выберите элемент для удаления или -1 для выхода.\n");
+        fflush(stdin);
+        int choice = askForChoice(count);
+        if (choice != -1) {
+            ptrUserInformation = firstUserInformation(ptrUserInformation); // указатель возвращаем в первоначальное состояние
+            for(int i = 0 ; i < choice-1 ; i ++){
+                ptrUserInformation = ptrUserInformation->next;        // катаем цикл до нужного элемента
+            }
+            UserInformation * ptrPrevUserInformation = ptrUserInformation->prev;
+            UserInformation * ptrNextUserInformation = ptrUserInformation->next;
+            if (ptrNextUserInformation != NULL)
+                ptrNextUserInformation->prev = ptrPrevUserInformation;
+            if (ptrPrevUserInformation != NULL)
+                ptrPrevUserInformation->next = ptrNextUserInformation;
+            delete(ptrUserInformation);
+
+            if (ptrNextUserInformation != NULL)
+                return ptrNextUserInformation;
+            if (ptrPrevUserInformation != NULL)
+                return ptrPrevUserInformation;
+            return NULL;
+        }
+    }
+    printf("Нет данных для удаления\n");
+    fflush(stdin);
+    return ptrUserInformation;
+}
+
+
+int viewAllUsers(UserInformation *ptrUserInformation){
+    int count = 0;
+    printf("-----------------------------------------------------------------\n");
+    printf("|   № |     Логин пользователя   |             Пароль           |\n");
+    printf("-----------------------------------------------------------------\n");
+
+    ptrUserInformation = ptrUserInformation->next;
+    while(ptrUserInformation != nullptr){
+        ptrUserInformation->password = decrypt(ptrUserInformation);  // сейчас три ночи и я хзхз как это зрабить
+        printf("|%-5d", (count + 1));
+        printf("|%-30s|%-30s|\n", ptrUserInformation->login , ptrUserInformation->password);
+        printf("----------------------------------\n");
+        ptrUserInformation = ptrUserInformation->next;
+    }
+    return count;
+}
+
+/*int edituser()
 {
     int k = 0;
 
@@ -221,8 +302,8 @@ int openuser()
         fclose(fp);
         return 1;
     }
-}
-
+}*/
+/*
 int deleteuser()
 {
     FILE *fp;
@@ -269,7 +350,8 @@ int deleteuser()
         fclose(fp);
         return 1;
     }
-}
+}*/
+/*
 
 int adduser()
 {
@@ -308,3 +390,4 @@ int adduser()
     return 0;
 }
 
+*/

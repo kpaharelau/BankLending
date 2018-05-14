@@ -195,7 +195,7 @@ int viewCredit(Credit *ptrCredit){
         ptrCredit = firstCredit(ptrCredit);
         while (ptrCredit != NULL) {                // подсказка для людей
             printf("|%-5d", (count + 1));
-            printf("|%-16d|%-16d|%-11d| %-2d.%-2d.%-4d |\n", ptrCredit->code_type, ptrCredit->tel_number,
+            printf("|%-16d|%-16d|%-11d| %2d.%2d.%4d |\n", ptrCredit->code_type, ptrCredit->tel_number,
                    ptrCredit->amount, ptrCredit->date.day, ptrCredit->date.month , ptrCredit->date.year);
             printf("------------------------------------------------------------------\n");
             ptrCredit = ptrCredit->next;
@@ -243,35 +243,6 @@ Credit* editCredit(Credit *ptrCredit){
             printf("Введите сумму кредита: ");
             fflush(stdin);
             ptrCredit->amount = getNumberFromKeyboard();
-            printf("Введите дату выдачи:\n");
-            printf("день: ");
-            fflush(stdin);
-            while(true){
-                ptrCredit->date.day = getNumberFromKeyboard();
-                if(ptrCredit->date.day >= 1 && ptrCredit->date.day <= 31){
-                    break;
-                }
-                else
-                    printf("Проверьте дату!\n");
-            }
-            printf("месяц: ");
-            fflush(stdin);
-            while(true){
-                ptrCredit->date.month = getNumberFromKeyboard();
-                if((ptrCredit->date.month >= 1) && (ptrCredit->date.month <= 12)){
-                    break;
-                }
-                printf("Проверьте дату!\n");
-            }
-            printf("год: ");
-            fflush(stdin);
-            while(true){
-                ptrCredit->date.year = getNumberFromKeyboard();
-                if((ptrCredit->date.year <= 2018) && (ptrCredit->date.year >= 2000 )){
-                    break;
-                }
-                printf("Проверьте дату!\n");
-            }
         }
 
     }

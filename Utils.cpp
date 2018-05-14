@@ -2,6 +2,7 @@
 #include "CreditType.h"
 #include "Client.h"
 #include "Credit.h"
+#include "UserInformation.h"
 
 #define _XOPEN_SOURCE
 #include <unistd.h>
@@ -15,16 +16,6 @@ int getNumberFromKeyboard() {
     int res, i;
     do {
         res = scanf("%d", &i);
-        while (getchar() != '\n');
-        if (res != 1) printf("Введите число!\n");
-    } while (res != 1);
-    return i;
-}
-
-long getLongFromKeyboard() {
-    long res, i;
-    do {
-        res = scanf("%li", &i);
         while (getchar() != '\n');
         if (res != 1) printf("Введите число!\n");
     } while (res != 1);
@@ -130,4 +121,31 @@ int checkPassword(char *input, char *pass) {
     ok = strcmp(input, pass) == 0;
     return ok;
 
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+//               Выпольнение задачи // ПОЛЬЗОВАТЕЛЬ
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+void task(CreditType* ptrCreditType){
+    int count;
+    ptrCreditType = firstCreditType(ptrCreditType);
+    while(ptrCreditType != nullptr){
+        ptrCreditType = ptrCreditType->next;
+        count++;
+    }
+    CreditType * ptrNextCreditType = ptrCreditType->next;
+    CreditType * tmp;
+    for(int i = 0 ; i < count-1; i++){
+            if (ptrNextCreditType < ptrCreditType) {
+                tmp->loan_period = ptrNextCreditType->loan_period;
+                ptrNextCreditType->loan_period = ptrCreditType->loan_period;
+                ptrCreditType->loan_period = tmp->loan_period;
+                // тут надо что-то дописать, чтобы при следующем проходе все было ок
+            }
+        ptrCreditType = ptrCreditType->next;
+    }
+    for( int i = 0; i < 3 ; i++){
+        printf("%d. %d", (i+1), ptrCreditType->loan_period);
+    }
 }

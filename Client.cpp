@@ -12,13 +12,13 @@ Client *readClient() {
 
         Client *ptrPrevClient = nullptr;
         while (true) {
-            long tel_number;             // логин
+            int tel_number;             // логин
             char user_name[18];         // имя
             char user_surname[26];      // фамилия   // кредитополучатель
             char address[28];           // адрес
             char guarantor_name[18];    // имя поручитель
             char guarantor_surname[26]; // фамилия поручителя
-            int count = fscanf(ptrClientFile, "%li %s %s %s %s %s ",
+            int count = fscanf(ptrClientFile, "%d %s %s %s %s %s ",
                                &tel_number,
                                user_surname,
                                user_name,
@@ -52,8 +52,8 @@ void recordClient(Client *ptrClient) {
     FILE *ptrClientFiles = fopen("../Client.txt", "w+");
     ptrClient = firstClient(ptrClient);
     while (ptrClient != NULL) {
-        fprintf(ptrClientFiles, "%li %s %s %s %s %s\n",
-                &ptrClient->tel_number,
+        fprintf(ptrClientFiles, "%d %s %s %s %s %s\n",
+                ptrClient->tel_number,
                 ptrClient->name_user.surname,
                 ptrClient->name_user.name,
                 ptrClient->address,
@@ -95,8 +95,8 @@ Client *inputClient(Client *ptrClient) {
         printf("Введите телефонный номер:\n");
         fflush(stdin);
         while(true){
-            ptrNewClient->tel_number = getLongFromKeyboard();
-            if((ptrNewClient->tel_number >= 375000000000) && (ptrNewClient->tel_number <= 375999999999)){
+            ptrNewClient->tel_number = getNumberFromKeyboard();
+            if((ptrNewClient->tel_number >= 0000000) && (ptrNewClient->tel_number <= 9999999)){
                 break;
             }
             printf("Проверьте номер!\n");
@@ -165,7 +165,7 @@ int viewClient(Client *ptrClient){
     ptrClient = firstClient(ptrClient);
     while (ptrClient != NULL) {                // подсказка для людей
         printf("|%-5d", (count + 1));
-        printf("|%-16li|%-26s|%-18s|%-28s|%-26s|%-18s| \n", ptrClient->tel_number, ptrClient->name_user.surname,
+        printf("|%-16d|%-26s|%-18s|%-28s|%-26s|%-18s| \n", ptrClient->tel_number, ptrClient->name_user.surname,
                ptrClient->name_user.name, ptrClient->address, ptrClient->guarantor.surname, ptrClient->guarantor.name);
         printf("-------------------------------------------------------------------------------------------------------------------------------------------------\n");        ptrClient = ptrClient->next;
         count++;
@@ -200,8 +200,8 @@ Client* editClient(Client *ptrClient){
             printf("Введите телефонный номер:\n");
             fflush(stdin);
             while (true) {
-                ptrClient->tel_number = getLongFromKeyboard();
-                if ((ptrClient->tel_number >= 375000000000) && (ptrClient->tel_number <= 375999999999)) {
+                ptrClient->tel_number = getNumberFromKeyboard();
+                if ((ptrClient->tel_number >= 0000000) && (ptrClient->tel_number <= 9999999)) {
                     break;
                 }
                 printf("Проверьте номер!\n");
