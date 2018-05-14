@@ -143,12 +143,12 @@ UserInformation* addUsers(UserInformation *ptrUserInformation){
         printf("Введите пароль:\n");
         fflush(stdin);
         scanf("%s", ptrNewUserInformation->password);
-        ptrNewUserInformation->password = createPassword(ptrNewUserInformation->password); // тут тоже подправить , но не переписывать
+        strcpy(ptrNewUserInformation->password, createPassword(ptrNewUserInformation->password)); // тут тоже подправить , но не переписывать
 
         ptrNewUserInformation->prev = ptrUserInformation;
         if (ptrUserInformation != NULL)
             ptrUserInformation->next = ptrNewUserInformation;
-        ptrUserInformation = ptrNewUserInformation;
+        return  ptrNewUserInformation;
     }
 
     return ptrUserInformation;
@@ -192,14 +192,15 @@ int viewAllUsers(UserInformation *ptrUserInformation){
     printf("|   № |     Логин пользователя   |             Пароль           |\n");
     printf("-----------------------------------------------------------------\n");
 
-    ptrUserInformation = ptrUserInformation->next;
-    while(ptrUserInformation != nullptr){
-        ptrUserInformation->password = decrypt(ptrUserInformation);  // сейчас три ночи и я хзхз как это зрабить
+    ptrUserInformation = firstUserInformation(ptrUserInformation);
+    while (ptrUserInformation != NULL) {
+        char* password = decrypt(ptrUserInformation->password);  // сейчас три ночи и я хзхз как это зрабить
         printf("|%-5d", (count + 1));
-        printf("|%-30s|%-30s|\n", ptrUserInformation->login , ptrUserInformation->password);
+        printf("|%-30s|%-30s|\n", ptrUserInformation->login , password);
         printf("----------------------------------\n");
         ptrUserInformation = ptrUserInformation->next;
     }
+   
     return count;
 }
 

@@ -5,7 +5,7 @@
 #include "UserInformation.h"
 
 void menuAdmin(BankData* ptrBankData) {
-    int test;
+
     while (true) {
         clearConsole();
         printf("Администратор ======= Выберите действие =======\n");

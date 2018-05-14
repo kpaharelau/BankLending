@@ -121,6 +121,10 @@ void searchClient(Client* ptrClient);
 
 void task(CreditType* ptrCreditType) ;
 
+char *encrypt(char *input) ;
+
+char *decrypt(char *input);
+
 
 
 
