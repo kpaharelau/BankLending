@@ -502,10 +502,10 @@ void userManagement(BankData* ptrBankData){
                 viewAllUsers(ptrBankData->information);
                 break;
             case 2: clearConsole();
-                ptrBankData->information = deleteUsers(ptrBankData->information);
+                deleteUsers(ptrBankData->information);
                 break;
             case 3: clearConsole();
-                ptrBankData->information = addUsers(ptrBankData->information);
+                addUsers(ptrBankData->information);
                 break;
             default: printf("Введите числа от 0 до 3: ");
         }
