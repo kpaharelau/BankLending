@@ -42,10 +42,11 @@ int main() {
                 recordCreditTypes(bankData->creditType);
                 recordCredit(bankData->credit);
                 recordClient(bankData->client);
+                delete bankData;
                 exit(0);
             default:
                 printf("Вветите числа от 0 до 2\n");
-                break;
         }
     }
+
 }

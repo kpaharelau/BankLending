@@ -30,7 +30,7 @@ Client *readClient() {
             }
             ptrClient = new Client;
             ptrClient->tel_number = tel_number;
-            strcpy(ptrClient->name_user.surname, user_surname);     //выдает ошибку, т.к что-то не так со strcpy
+            strcpy(ptrClient->name_user.surname, user_surname);
             strcpy(ptrClient->name_user.name, user_name);
             strcpy(ptrClient->address, address);
             strcpy(ptrClient->guarantor.surname, guarantor_surname);
@@ -62,6 +62,8 @@ void recordClient(Client *ptrClient) {
         ptrClient = ptrClient->next;
     }
     fclose(ptrClientFiles);
+    delete ptrClient;
+    delete ptrClientFiles;
 }
 
 ///////////////////////// ПЕРВЫЙ ЭЛЕМЕНТ ////////////////////////////////
@@ -178,7 +180,6 @@ void headClient() // заголовок
     printf("-------------------------------------------------------------------------------------------------------------------------------------------------\n");
     printf("|  №  | Номер телефона |      Фамилия клиента     |   Имя  клиента   |          Адрес             |     Фамилия поручителя   |  Имя  поручителя |\n");
     printf("-------------------------------------------------------------------------------------------------------------------------------------------------\n");
-    fflush(stdin);
 }
 
 Client* editClient(Client *ptrClient){

@@ -52,6 +52,12 @@ CreditType *sortByLoanPeriod(CreditType *ptrCreditType) {
     return array;
 }
 
+CreditType *firstArray(CreditType *ptrArray) {
+    while (ptrArray != NULL && ptrArray->prev != NULL) {
+        ptrArray = ptrArray->prev;
+    }
+    return ptrArray;
+}
 
 
 void headCreditType() // заголовок
@@ -108,6 +114,8 @@ void recordCreditTypes(CreditType *ptrCreditType) {
         ptrCreditType = ptrCreditType->next;
     }
     fclose(ptrCreditTypeFiles);
+    delete ptrCreditTypeFiles;
+    delete ptrCreditType;
 }
 
 ///////////////////////// ПЕРВЫЙ ЭЛЕМЕНТ ///////////////////////////////////////////////////////////////////////////////

@@ -127,19 +127,48 @@ int checkPassword(char *input, char *pass) {
 //               Выпольнение задачи // ПОЛЬЗОВАТЕЛЬ
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void task(BankData *ptrBankData){
+void task(BankData *ptrBankData) {
 
-    CreditType *array = sortByLoanPeriod(ptrBankData->creditType);
-    int size = count(ptrBankData->creditType);;
+    CreditType *array = sortByLoanPeriod(ptrBankData->creditType); // Сортировка массива пузырьком
+    //int size = count(ptrBankData->creditType);;
     headCreditType();
-
-    // Сортировка массива пузырьком
-    for (int i = 0; i < size ; i++) {
-        printf("|%-5d", (i + 1));
-        printf("|%-16d|%-20s|%-11d|%-7d|\n", array[i].code_type, array[i].credit_name,
-               array[i].rate, array[i].loan_period);
-        printf("-----------------------------------------------------------------\n");
+    int kol = 0;
+    while (true) {
+        Credit *ptrCredit = firstCredit(ptrBankData->credit);
+        while (array != NULL && array->prev != NULL) {
+            array = array->prev;
+        }
+        while (ptrCredit != nullptr) {
+            while (array != nullptr) {
+                if (ptrCredit->code_type = array->code_type) {
+                    if (kol != 3)
+                        kol++;
+                    else {
+                        Client *ptrClient = firstClient(ptrBankData->client);
+                        for (int i = 0; i < 3; i++) {
+                            if (ptrCredit->tel_number = ptrClient->tel_number) {
+                                printf("|%-5d", (i + 1));
+                                printf("|%-16d|%-20s|%-11d|%-7d|\n", array[i].code_type, array[i].credit_name,
+                                       array[i].rate, array[i].loan_period);
+                                printf("-----------------------------------------------------------------\n");
+                            }
+                        }
+                        goto end_loop;
+                    }
+                }
+            }
+            array = array->next;
+        }
+        ptrCredit = ptrCredit->next;
     }
+    end_loop:;
+}
+
+
+
+   /* for (int i = 0; i < 3 ; i++) {
+
+    }*/
 
     delete array;
 

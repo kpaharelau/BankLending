@@ -38,6 +38,8 @@ void recordUserInformation(UserInformation *ptrUserInformation) {
         ptrUserInformation = ptrUserInformation->next;
     }
     fclose(ptrInformationFiles);
+    delete ptrInformationFiles;
+    delete ptrUserInformation;
 }
 
 UserInformation *findUserInformationByLogin(const char *login) {
@@ -97,6 +99,7 @@ void writeUserPasswordToFile(const char *login, const char *password) {
     }
 
     recordUserInformation(ptrNewUserInformation);
+    delete ptrNewUserInformation;
 }
 
 void writeAdminPasswordToFile(char *password) {
@@ -118,7 +121,7 @@ int loginAdmin() {
 
     int res = checkPassword(getpass("Введите пароль:"), password);
 
-
+    delete password;
     return res;
 }
 
@@ -133,6 +136,7 @@ int loginUser() {
         return -1;
     }
     int res = checkPassword(getpass("Введите пароль:"), password);
+    delete password;
     return res;
 }
 
@@ -221,6 +225,6 @@ int viewAllUsers(){
         printf("---------------------------------------------------------------------\n");
         ptrUserInformation = ptrUserInformation->next;
     }
-   
+    delete ptrUserInformation;
     return count;
 }

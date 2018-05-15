@@ -54,6 +54,8 @@ void recordCredit(Credit *ptrCredit){
         ptrCredit = ptrCredit->next;
     }
     fclose(ptrCreditFiles);
+    delete ptrCredit;
+    delete ptrCreditFiles;
 }
 ///////////////////////// ПЕРВЫЙ ЭЛЕМЕНТ ///////////////////////////////////////////////////////////////////////////////
 Credit *firstCredit(Credit *ptrCredit) {
