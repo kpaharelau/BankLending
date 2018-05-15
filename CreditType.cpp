@@ -1,5 +1,47 @@
 #include "CreditType.h"
 
+int count(CreditType *ptrCreditType){
+    int count = 0;
+    ptrCreditType = firstCreditType(ptrCreditType);
+    while (ptrCreditType != NULL) {               
+        ptrCreditType = ptrCreditType->next;
+        count++;
+    }
+    return count;
+}
+
+CreditType* toArray(CreditType *ptrCreditType){
+    
+    CreditType* array =  new CreditType[count(ptrCreditType)];
+    int i = 0;
+    ptrCreditType = firstCreditType(ptrCreditType);
+    while (ptrCreditType != NULL) {
+        array[i++] = *ptrCreditType;
+        ptrCreditType = ptrCreditType->next;
+    }
+    return array;
+}
+
+CreditType *sortByLoanPeriod(CreditType *ptrCreditType) {
+
+    CreditType *array = toArray(ptrCreditType);
+    int size = count(ptrCreditType);
+    CreditType *temp; // временная переменная для обмена элементов местами
+
+    // Сортировка массива пузырьком
+    for (int i = 0; i < size - 1; i++) {
+        for (int j = 0; j < size - i - 1; j++) {
+            if (array[j].loan_period > array[j + 1].loan_period) {
+                // меняем элементы местами
+                temp = &array[j];
+                array[j]= array[j + 1];
+                array[j + 1] = *temp;
+            }
+        }
+    }
+
+    return array;
+}
 
 void headCreditType() // заголовок
 {

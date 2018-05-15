@@ -127,25 +127,40 @@ int checkPassword(char *input, char *pass) {
 //               Выпольнение задачи // ПОЛЬЗОВАТЕЛЬ
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-void task(CreditType* ptrCreditType){
-    int count;
-    ptrCreditType = firstCreditType(ptrCreditType);
-    while(ptrCreditType != nullptr){
-        ptrCreditType = ptrCreditType->next;
-        count++;
+void task(BankData *ptrBankData){
+
+    CreditType *array = sortByLoanPeriod(ptrBankData->creditType);
+    int size = count(ptrBankData->creditType);;
+    headCreditType();
+
+    // Сортировка массива пузырьком
+    for (int i = 0; i < size ; i++) {
+        printf("|%-5d", (i + 1));
+        printf("|%-16d|%-20s|%-11d|%-7d|\n", array[i].code_type, array[i].credit_name,
+               array[i].rate, array[i].loan_period);
+        printf("-----------------------------------------------------------------\n");
     }
-    CreditType * ptrNextCreditType = ptrCreditType->next;
-    CreditType * tmp;
-    for(int i = 0 ; i < count-1; i++){
-            if (ptrNextCreditType < ptrCreditType) {
-                tmp->loan_period = ptrNextCreditType->loan_period;
-                ptrNextCreditType->loan_period = ptrCreditType->loan_period;
-                ptrCreditType->loan_period = tmp->loan_period;
-                // тут надо что-то дописать, чтобы при следующем проходе все было ок
-            }
-        ptrCreditType = ptrCreditType->next;
-    }
-    for( int i = 0; i < 3 ; i++){
-        printf("%d. %d", (i+1), ptrCreditType->loan_period);
-    }
+
+
+//    int count;
+//
+//    ptrBankData = firstCreditType(ptrBankData);
+//    while(ptrBankData != nullptr){
+//        ptrBankData = ptrBankData->next;
+//        count++;
+//    }
+//    CreditType * ptrNextCreditType = ptrBankData->next;
+//    CreditType * tmp;
+//    for(int i = 0 ; i < count-1; i++){
+//            if (ptrNextCreditType < ptrBankData) {
+//                tmp->loan_period = ptrNextCreditType->loan_period;
+//                ptrNextCreditType->loan_period = ptrBankData->loan_period;
+//                ptrBankData->loan_period = tmp->loan_period;
+//                // тут надо что-то дописать, чтобы при следующем проходе все было ок
+//            }
+//        ptrBankData = ptrBankData->next;
+//    }
+//    for( int i = 0; i < 3 ; i++){
+//        printf("%d. %d", (i+1), ptrBankData->loan_period);
+//    }
 }
