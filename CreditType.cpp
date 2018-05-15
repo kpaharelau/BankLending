@@ -24,7 +24,7 @@ CreditType* toArray(CreditType *ptrCreditType){
 
 void bubbleSort(CreditType* arrayPtr, int length_array) // сортировка пузырьком
 {
-    CreditType* temp = NULL; // временная переменная для хранения элемента массива
+    CreditType temp; // временная переменная для хранения элемента массива
     bool exit = false; // болевая переменная для выхода из цикла, если массив отсортирован
 
     while (!exit) // пока массив не отсортирован
@@ -36,9 +36,9 @@ void bubbleSort(CreditType* arrayPtr, int length_array) // сортировка 
             if (arrayPtr[int_counter].loan_period > arrayPtr[int_counter + 1].loan_period ) // сравниваем два соседних элемента
             {
                 // выполняем перестановку элементов массива
-                temp = &arrayPtr[int_counter];
+                temp = arrayPtr[int_counter];
                 arrayPtr[int_counter] = arrayPtr[int_counter + 1];
-                arrayPtr[int_counter + 1] = *temp;
+                arrayPtr[int_counter + 1] = temp;
                 exit = false; // на очередной итерации была произведена перестановка элементов
             }
     }
