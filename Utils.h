@@ -113,7 +113,7 @@ void searchCreditType(CreditType* ptrCreditType);
 
 void searchClient(Client* ptrClient);
 
-void task(CreditType* ptrCreditType) ;
+void task(BankData *ptrBankData) ;
 
 char *encrypt(char *input) ;
 

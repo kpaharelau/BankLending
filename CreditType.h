@@ -9,3 +9,7 @@ CreditType* deleteCreditType(CreditType *ptrCreditType);
 int viewCreditType(CreditType *ptrCreditType);
 void headCreditType();
 CreditType* editCreditType(CreditType *ptrCreditType);
+
+int count(CreditType *ptrCreditType);
+CreditType* toArray(CreditType *ptrCreditType);
+CreditType *sortByLoanPeriod(CreditType *ptrCreditType);
