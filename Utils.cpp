@@ -130,68 +130,35 @@ int checkPassword(char *input, char *pass) {
 void task(BankData *ptrBankData) {
 
     CreditType *array = sortByLoanPeriod(ptrBankData->creditType); // Сортировка массива пузырьком
-    //int size = count(ptrBankData->creditType);;
-    headCreditType();
-    int kol = 0;
-    while (true) {
-        Credit *ptrCredit = firstCredit(ptrBankData->credit);
-        while (array != NULL && array->prev != NULL) {
-            array = array->prev;
-        }
-        while (ptrCredit != nullptr) {
-            while (array != nullptr) {
-                if (ptrCredit->code_type = array->code_type) {
-                    if (kol != 3)
-                        kol++;
-                    else {
-                        Client *ptrClient = firstClient(ptrBankData->client);
-                        for (int i = 0; i < 3; i++) {
-                            if (ptrCredit->tel_number = ptrClient->tel_number) {
-                                printf("|%-5d", (i + 1));
-                                printf("|%-16d|%-20s|%-11d|%-7d|\n", array[i].code_type, array[i].credit_name,
-                                       array[i].rate, array[i].loan_period);
-                                printf("-----------------------------------------------------------------\n");
-                            }
-                        }
-                        goto end_loop;
+    int size = count(ptrBankData->creditType);
+    
+
+    size = size < 3 ? size:3;
+
+    headClient();
+
+    for (int i = 0; i < size ; i++) {
+
+        int code_type = array[i].code_type;
+        Credit *pCredit = firstCredit(ptrBankData->credit);
+        while (pCredit!=NULL) {
+            if (pCredit->code_type == code_type) {
+                Client *pClient = firstClient(ptrBankData->client);
+                while (pClient!=NULL) {
+                    if (pClient->tel_number == pCredit->tel_number) {
+                        printf("|%-5d", (i + 1));
+                        printf("|%-16d|%-26s|%-18s|%-28s|%-26s|%-18s|\n", pClient->tel_number, pClient->name_user.surname,
+                               pClient->name_user.name, pClient->address, pClient->guarantor.surname, pClient->guarantor.name);
+                        printf("-------------------------------------------------------------------------------------------------------------------------------------------------\n");
+                        break;
                     }
+                    pClient = pClient->next;
                 }
+
             }
-            array = array->next;
+            pCredit = pCredit->next;
         }
-        ptrCredit = ptrCredit->next;
     }
-    end_loop:;
-}
-
-
-
-   /* for (int i = 0; i < 3 ; i++) {
-
-    }*/
-
     delete array;
 
-
-//    int count;
-//
-//    ptrBankData = firstCreditType(ptrBankData);
-//    while(ptrBankData != nullptr){
-//        ptrBankData = ptrBankData->next;
-//        count++;
-//    }
-//    CreditType * ptrNextCreditType = ptrBankData->next;
-//    CreditType * tmp;
-//    for(int i = 0 ; i < count-1; i++){
-//            if (ptrNextCreditType < ptrBankData) {
-//                tmp->loan_period = ptrNextCreditType->loan_period;
-//                ptrNextCreditType->loan_period = ptrBankData->loan_period;
-//                ptrBankData->loan_period = tmp->loan_period;
-//                // тут надо что-то дописать, чтобы при следующем проходе все было ок
-//            }
-//        ptrBankData = ptrBankData->next;
-//    }
-//    for( int i = 0; i < 3 ; i++){
-//        printf("%d. %d", (i+1), ptrBankData->loan_period);
-//    }
 }

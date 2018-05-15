@@ -33,7 +33,7 @@ void bubbleSort(CreditType* arrayPtr, int length_array) // сортировка 
         for (int int_counter = 0; int_counter < (length_array - 1); int_counter++) // внутренний цикл
             //сортировка пузырьком по возрастанию - знак >
             //сортировка пузырьком по убыванию - знак <
-            if (arrayPtr[int_counter].loan_period > arrayPtr[int_counter + 1].loan_period ) // сравниваем два соседних элемента
+            if (arrayPtr[int_counter].loan_period < arrayPtr[int_counter + 1].loan_period ) // сравниваем два соседних элемента
             {
                 // выполняем перестановку элементов массива
                 temp = arrayPtr[int_counter];

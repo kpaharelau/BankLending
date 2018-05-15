@@ -121,7 +121,6 @@ int loginAdmin() {
 
     int res = checkPassword(getpass("Введите пароль:"), password);
 
-    delete password;
     return res;
 }
 
@@ -136,7 +135,6 @@ int loginUser() {
         return -1;
     }
     int res = checkPassword(getpass("Введите пароль:"), password);
-    delete password;
     return res;
 }
 
