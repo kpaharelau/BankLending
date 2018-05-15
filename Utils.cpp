@@ -141,6 +141,8 @@ void task(BankData *ptrBankData){
         printf("-----------------------------------------------------------------\n");
     }
 
+    delete array;
+
 
 //    int count;
 //
